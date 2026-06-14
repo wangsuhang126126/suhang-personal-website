@@ -12,6 +12,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import JourneyPage from "./pages/JourneyPage.jsx";
 import LabPage from "./pages/LabPage.jsx";
 import WritingPage from "./pages/WritingPage.jsx";
+import ArticlePage from "./pages/ArticlePage.jsx";
 import { useTheme } from "./hooks/useTheme.js";
 
 export default function App() {
@@ -21,6 +22,8 @@ export default function App() {
   const isJourneyPage = window.location.pathname === "/journey";
   const isLabPage = window.location.pathname === "/lab";
   const isWritingPage = window.location.pathname === "/writing";
+  const articleSlug = window.location.pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
+  const isArticlePage = Boolean(articleSlug);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -33,7 +36,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isAboutPage || isJourneyPage || isLabPage || isWritingPage || window.location.hash !== "#contact") {
+    if (isAboutPage || isJourneyPage || isLabPage || isWritingPage || isArticlePage || window.location.hash !== "#contact") {
       return undefined;
     }
 
@@ -50,7 +53,7 @@ export default function App() {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(timeout);
     };
-  }, [isAboutPage, isJourneyPage, isLabPage, isWritingPage]);
+  }, [isAboutPage, isJourneyPage, isLabPage, isWritingPage, isArticlePage]);
 
   return (
     <>
@@ -63,6 +66,8 @@ export default function App() {
         <LabPage />
       ) : isWritingPage ? (
         <WritingPage />
+      ) : isArticlePage ? (
+        <ArticlePage slug={articleSlug} />
       ) : (
         <main>
           <section

@@ -296,6 +296,21 @@ const journeySections = [
   },
 ];
 
+const journeyProgressions = [
+  {
+    label: "PLACE",
+    path: "China → Japan → Global",
+  },
+  {
+    label: "ENERGY",
+    path: "Solar → Storage → Systems",
+  },
+  {
+    label: "WORK",
+    path: "Business → Technology → AI",
+  },
+];
+
 function useJourneyReveal() {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -367,6 +382,14 @@ function JourneyHero() {
             <br />
             and turning technical products into practical adoption.
           </p>
+        </div>
+        <div className="journey-progress-map" aria-label="Journey progression">
+          {journeyProgressions.map((item) => (
+            <div className="journey-progress-row" key={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.path}</strong>
+            </div>
+          ))}
         </div>
       </div>
     </section>

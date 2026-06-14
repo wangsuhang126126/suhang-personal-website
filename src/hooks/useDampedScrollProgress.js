@@ -26,7 +26,7 @@ export function useDampedScrollProgress(ref) {
     };
 
     const animate = () => {
-      current += (target - current) * 0.055;
+      current += (target - current) * 0.045;
       if (Math.abs(target - current) < 0.001) {
         current = target;
       }

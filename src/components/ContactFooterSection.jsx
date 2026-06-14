@@ -1,18 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-const contactLinks = [
-  {
-    label: "EMAIL",
-    text: "wangsuhang126126@gmail.com",
-    href: "mailto:wangsuhang126126@gmail.com",
-  },
-  {
-    label: "LINKEDIN",
-    text: "linkedin.com/in/wangsuhang",
-    href: "https://www.linkedin.com/in/wangsuhang",
-  },
-];
-
 const footerLinks = [
   {
     text: "WRITING",
@@ -79,28 +66,49 @@ export default function ContactFooterSection() {
           <p className="contact-footer-body">
             For conversations around energy,
             <br />
-            technology, Japan, and the wider world.
+            technology, Japan, and practical collaboration.
           </p>
           <p className="contact-footer-note">
-            Work matters.
+            If you have a relevant question, project idea,
             <br />
-            So do curiosity, place, and the life around it.
+            media inquiry, or professional opportunity,
+            <br />
+            please send a short message below.
+          </p>
+          <p className="contact-footer-note">
+            I read messages selectively and reply
+            <br />
+            when there is a clear fit.
           </p>
         </div>
 
-        <div className="contact-footer-links" aria-label="Contact and site links">
-          {contactLinks.map((link, index) => (
-            <a
-              className="contact-link contact-link-primary"
-              href={link.href}
-              key={link.label}
-              style={{ "--contact-link-index": index }}
-              {...(link.label === "LINKEDIN" ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              <span>{link.label}</span>
-              <strong>{link.text}</strong>
-            </a>
-          ))}
+        <div className="contact-footer-panel">
+          {/* TODO: Connect this form to Formspree or Cloudflare Pages Functions before enabling submissions. */}
+          <form
+            className="contact-form"
+            aria-label="Contact form"
+            onSubmit={(event) => {
+              event.preventDefault();
+            }}
+          >
+            <label>
+              <span>Name</span>
+              <input name="name" autoComplete="name" type="text" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" autoComplete="email" type="email" />
+            </label>
+            <label>
+              <span>Topic</span>
+              <input name="topic" type="text" />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="5" />
+            </label>
+            <button type="submit">Send Message</button>
+          </form>
 
           <nav className="contact-footer-nav" aria-label="Footer navigation">
             {footerLinks.map((link, index) => (
@@ -108,7 +116,7 @@ export default function ContactFooterSection() {
                 className="contact-link contact-link-nav"
                 href={link.href}
                 key={link.text}
-                style={{ "--contact-link-index": index + contactLinks.length }}
+                style={{ "--contact-link-index": index }}
               >
                 <strong>
                   {link.text} <span aria-hidden="true">→</span>

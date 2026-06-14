@@ -128,6 +128,8 @@ const directionRows = [
   },
 ];
 
+const personalDimensions = ["Work", "Japan", "Energy", "AI", "Life", "Curiosity"];
+
 const beyondImages = [
   {
     className: "about-life-photo",
@@ -220,6 +222,11 @@ function AboutIntroduction() {
             <p>Suhang Wang (Frank)</p>
             <p lang="zh-Hans">王苏杭</p>
             <p lang="ja">王 蘇杭（おう そこう）</p>
+          </div>
+          <div className="about-dimensions" aria-label="Personal dimensions">
+            {personalDimensions.map((dimension) => (
+              <span key={dimension}>{dimension}</span>
+            ))}
           </div>
           <div className="about-body-copy">
             <p>

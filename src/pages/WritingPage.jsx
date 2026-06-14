@@ -1,71 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import MinimalFooter from "../components/MinimalFooter.jsx";
+import { getArticleIndex } from "../content/articles.js";
 
-const featuredNote = {
-  href: "/writing/japan-residential-energy-transition",
-  title: (
-    <>
-      Japan&rsquo;s Residential Energy Transition:
-      <br />
-      What Comes After Solar?
-    </>
-  ),
-  body: (
-    <>
-      A closer look at how storage, VPPs,
-      <br />
-      and distributed energy are reshaping
-      <br />
-      the residential energy market in Japan.
-    </>
-  ),
-  tags: "ENERGY · JAPAN · STORAGE",
-};
+const writingEntries = getArticleIndex("en");
+const featuredNote = writingEntries[0];
 
-const writingEntries = [
-  {
-    number: "01",
-    title: (
-      <>
-        Japan&rsquo;s Residential Energy Transition:
-        <br />
-        What Comes After Solar?
-      </>
-    ),
-    tags: "ENERGY · JAPAN · STORAGE",
-    href: "/writing/japan-residential-energy-transition",
-  },
-  {
-    number: "02",
-    title: "AI as a Tool for Better Decisions",
-    tags: "AI · WORKFLOW · PRODUCTIVITY",
-    href: "/writing/ai-better-decisions",
-  },
-  {
-    number: "03",
-    title: "Notes from Japan",
-    tags: "LIFE · OBSERVATION · CULTURE",
-    href: "/writing/notes-from-japan",
-  },
-  {
-    number: "04",
-    title: "Understanding VPPs in Japan",
-    tags: "ENERGY · VPP · POLICY",
-    href: "/writing/understanding-vpps-japan",
-  },
-  {
-    number: "05",
-    title: "From Solar Sales to Energy Systems",
-    tags: "CAREER · ENERGY · MARKET",
-    href: "/writing/solar-sales-to-energy-systems",
-  },
-  {
-    number: "06",
-    title: "Building Small Things with AI",
-    tags: "AI · CREATION · TOOLS",
-    href: "/writing/building-small-things-with-ai",
-  },
-];
+function formatArticleDate(date) {
+  if (!date) {
+    return "DRAFT";
+  }
+
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  }).format(new Date(`${date}T00:00:00`));
+}
+
+function formatTags(tags) {
+  return Array.isArray(tags) ? tags.join(" · ") : tags;
+}
 
 const topicRows = [
   {
@@ -183,6 +137,10 @@ function WritingHero() {
 function WritingFeatured() {
   const [ref, isVisible] = useWritingReveal();
 
+  if (!featuredNote) {
+    return null;
+  }
+
   return (
     <section
       className={`writing-page-section writing-page-featured${isVisible ? " is-visible" : ""}`}
@@ -191,11 +149,11 @@ function WritingFeatured() {
     >
       <div className="writing-page-inner writing-page-featured-inner">
         <WritingMarker number="02" label="FEATURED" />
-        <a className="writing-featured-note" href={featuredNote.href}>
+        <a className="writing-featured-note" href={`/writing/${featuredNote.slug}`}>
           <span className="writing-featured-kicker">FEATURED NOTE</span>
           <h2 id="writing-featured-title">{featuredNote.title}</h2>
-          <p>{featuredNote.body}</p>
-          <span className="writing-featured-tags">{featuredNote.tags}</span>
+          <p>{featuredNote.summary}</p>
+          <span className="writing-featured-tags">{formatTags(featuredNote.tags)}</span>
           <span className="writing-featured-action">
             READ NOTE <span aria-hidden="true">→</span>
           </span>
@@ -223,14 +181,19 @@ function WritingIndex() {
           {writingEntries.map((entry, index) => (
             <a
               className="writing-index-row"
-              href={entry.href}
-              key={entry.number}
+              href={`/writing/${entry.slug}`}
+              key={entry.slug}
               style={{ "--writing-page-row-index": index }}
             >
-              <span className="writing-index-number">{entry.number}</span>
+              <span className="writing-index-number">{String(index + 1).padStart(2, "0")}</span>
               <span className="writing-index-main">
+                <span className="writing-index-meta">
+                  <span>{formatArticleDate(entry.date)}</span>
+                  <span>{formatTags(entry.tags)}</span>
+                  {entry.status && entry.status !== "published" ? <span>{entry.status}</span> : null}
+                </span>
                 <strong>{entry.title}</strong>
-                <span>{entry.tags}</span>
+                <span className="writing-index-description">{entry.summary}</span>
               </span>
               <span className="writing-index-arrow" aria-hidden="true">
                 →
