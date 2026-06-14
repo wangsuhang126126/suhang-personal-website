@@ -6,7 +6,7 @@ import remarkFrontmatter from "remark-frontmatter";
 export default defineConfig({
   plugins: [
     mdx({
-      remarkPlugins: [remarkFrontmatter],
+      remarkPlugins: [[remarkFrontmatter, ["yaml"]]],
     }),
     react(),
   ],

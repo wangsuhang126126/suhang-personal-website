@@ -1,77 +1,58 @@
+import React from "react";
+
 const mdxModules = import.meta.glob("./articles/**/*.mdx", {
   eager: true,
 });
 
-const mdxRawFiles = import.meta.glob("./articles/**/*.mdx", {
-  eager: true,
-  import: "default",
-  query: "?raw",
-});
-
 const languagePriority = ["en", "zh", "ja"];
 
-function parseFrontmatterValue(value) {
-  const trimmed = value.trim();
-
-  if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
-    return trimmed
-      .slice(1, -1)
-      .split(",")
-      .map((item) => item.trim().replace(/^["']|["']$/g, ""))
-      .filter(Boolean);
-  }
-
-  return trimmed.replace(/^["']|["']$/g, "");
-}
-
 function MissingArticleComponent() {
-  return "This article version could not be loaded.";
-}
-
-function getMdxModule(filePath) {
-  return (
-    mdxModules[filePath] ||
-    mdxModules[filePath.replace(/\?raw.*$/, "")] ||
-    mdxModules[filePath.replace(/\?import.*$/, "")]
+  return React.createElement(
+    "div",
+    { className: "article-error", role: "status" },
+    "This article version could not be rendered. Please check the article source file.",
   );
 }
 
-function parseMdxFile(raw, filePath, module) {
-  const match = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/);
-  if (!match) {
-    throw new Error(`Missing frontmatter in ${filePath}`);
-  }
+function getPathParts(filePath) {
+  return String(filePath).split("/");
+}
 
-  const [, frontmatterText] = match;
-  const frontmatter = {};
-
-  frontmatterText.split(/\r?\n/).forEach((line) => {
-    const separatorIndex = line.indexOf(":");
-    if (separatorIndex === -1) {
-      return;
-    }
-
-    const key = line.slice(0, separatorIndex).trim();
-    const value = line.slice(separatorIndex + 1);
-    frontmatter[key] = parseFrontmatterValue(value);
-  });
-
-  const pathParts = filePath.split("/");
+function getArticleLanguage(filePath, frontmatter) {
+  const pathParts = getPathParts(filePath);
   const fileName = pathParts[pathParts.length - 1] || "";
-  const folderSlug = pathParts[pathParts.length - 2] || frontmatter.canonicalSlug;
   const languageFromFile = fileName.replace(/\.mdx$/, "");
+  return frontmatter.language || languageFromFile || "en";
+}
+
+function getArticleSlug(filePath, frontmatter) {
+  const pathParts = getPathParts(filePath);
+  const folderSlug = pathParts[pathParts.length - 2] || "";
+  return frontmatter.canonicalSlug || folderSlug;
+}
+
+function normalizeArticle(filePath, module) {
+  const frontmatter = module?.frontmatter && typeof module.frontmatter === "object" ? module.frontmatter : {};
+  const slug = getArticleSlug(filePath, frontmatter);
+  const language = getArticleLanguage(filePath, frontmatter);
 
   return {
-    ...frontmatter,
-    Component: module?.default || MissingArticleComponent,
-    slug: frontmatter.canonicalSlug || folderSlug,
-    language: frontmatter.language || languageFromFile,
+    title: frontmatter.title || "Untitled article",
+    date: frontmatter.date || "",
+    language,
+    summary: frontmatter.summary || "No summary has been added yet.",
+    tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+    status: frontmatter.status || "draft",
+    canonicalSlug: frontmatter.canonicalSlug || slug,
+    Component: typeof module?.default === "function" ? module.default : MissingArticleComponent,
+    slug,
     sourcePath: filePath,
   };
 }
 
-const articles = Object.entries(mdxRawFiles)
-  .map(([filePath, raw]) => parseMdxFile(raw, filePath, getMdxModule(filePath)))
+const articles = Object.entries(mdxModules)
+  .map(([filePath, module]) => normalizeArticle(filePath, module))
+  .filter((article) => article.slug)
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
 const articlesBySlug = articles.reduce((groups, article) => {

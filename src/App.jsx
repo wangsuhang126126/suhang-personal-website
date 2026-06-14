@@ -22,7 +22,8 @@ export default function App() {
   const isJourneyPage = window.location.pathname === "/journey";
   const isLabPage = window.location.pathname === "/lab";
   const isWritingPage = window.location.pathname === "/writing";
-  const articleSlug = window.location.pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
+  const pathname = typeof window.location.pathname === "string" ? window.location.pathname : "";
+  const articleSlug = pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
   const isArticlePage = Boolean(articleSlug);
 
   useEffect(() => {
