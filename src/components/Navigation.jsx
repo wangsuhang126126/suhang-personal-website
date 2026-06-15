@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react";
 import NavigationBrand from "./NavigationBrand.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
-const navLinks = [
-  { label: "Writing", href: "/writing" },
-  { label: "Journey", href: "/journey" },
-  { label: "Lab", href: "/lab" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+const navKeys = [
+  { key: "nav.writing", href: "/writing" },
+  { key: "nav.journey", href: "/journey" },
+  { key: "nav.lab", href: "/lab" },
+  { key: "nav.about", href: "/about" },
+  { key: "nav.contact", href: "/contact" },
 ];
-const languages = ["EN", "JP", "ZH"];
+
+const langButtons = [
+  { label: "EN", code: "en" },
+  { label: "JP", code: "ja" },
+  { label: "ZH", code: "zh" },
+];
+
+function langHref(code) {
+  const path = window.location.pathname;
+  return `${path}?lang=${code}`;
+}
 
 export default function Navigation({ theme, onToggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [brandCollapsed, setBrandCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const currentPath = window.location.pathname;
+  const lang = useLang();
+
   const toggleMenu = () => setMenuOpen((open) => !open);
   const handleMenuKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -42,21 +56,26 @@ export default function Navigation({ theme, onToggleTheme }) {
 
         <div className="nav-right">
           <div className="nav-links" aria-label="Site sections">
-            {navLinks.map((link) => (
+            {navKeys.map((link) => (
               <a
                 className={currentPath === link.href ? "is-active" : undefined}
                 href={link.href}
-                key={link.label}
+                key={link.key}
               >
-                {link.label}
+                {t(lang, link.key)}
               </a>
             ))}
           </div>
 
           <div className="language-links" aria-label="Language choices">
-            {languages.map((language) => (
-              <a href="#" key={language}>
-                {language}
+            {langButtons.map(({ label, code }) => (
+              <a
+                className={lang === code ? "is-active" : undefined}
+                href={langHref(code)}
+                key={code}
+                aria-current={lang === code ? "true" : undefined}
+              >
+                {label}
               </a>
             ))}
           </div>
@@ -77,14 +96,14 @@ export default function Navigation({ theme, onToggleTheme }) {
         </div>
 
         <div className={`mobile-panel${menuOpen ? " is-open" : ""}`}>
-          {navLinks.map((link) => (
+          {navKeys.map((link) => (
             <a
               className={currentPath === link.href ? "is-active" : undefined}
               href={link.href}
-              key={link.label}
+              key={link.key}
               onClick={() => setMenuOpen(false)}
             >
-              {link.label}
+              {t(lang, link.key)}
             </a>
           ))}
         </div>

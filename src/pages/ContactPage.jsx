@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import ContactForm from "../components/ContactForm.jsx";
 import MinimalFooter from "../components/MinimalFooter.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
 export default function ContactPage() {
+  const lang = useLang();
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, []);
@@ -14,21 +18,19 @@ export default function ContactPage() {
           <div className="contact-page-copy">
             <p className="section-marker">
               <span>01</span>
-              <span>CONTACT</span>
+              <span>{t(lang, "contact.marker")}</span>
             </p>
             <h1 id="contact-page-title">
-              LET&rsquo;S STAY
+              {t(lang, "contact.heading.line1")}
               <br />
-              IN TOUCH.
+              {t(lang, "contact.heading.line2")}
             </h1>
-            <p className="contact-page-body">
-              For conversations around energy, technology, Japan, and practical collaboration.
-            </p>
-            <p className="contact-page-note">I read messages selectively and reply when there is a clear fit.</p>
+            <p className="contact-page-body">{t(lang, "contact.body")}</p>
+            <p className="contact-page-note">{t(lang, "contact.note")}</p>
           </div>
 
           <div className="contact-page-panel">
-            <ContactForm />
+            <ContactForm lang={lang} />
           </div>
         </div>
       </section>

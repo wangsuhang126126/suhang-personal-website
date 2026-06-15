@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import MinimalFooter from "../components/MinimalFooter.jsx";
 import { getArticleIndex } from "../content/articles.js";
-
-const writingEntries = getArticleIndex("en");
-const featuredNote = writingEntries[0];
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
 function formatArticleDate(date) {
   if (!date) {
@@ -27,47 +26,11 @@ function formatTags(tags) {
   return Array.isArray(tags) ? tags.join(" · ") : tags;
 }
 
-const topicRows = [
-  {
-    title: "ENERGY SYSTEMS",
-    text: (
-      <>
-        Residential storage, VPPs, distributed energy,
-        <br />
-        and the Japanese market.
-      </>
-    ),
-  },
-  {
-    title: "AI & TOOLS",
-    text: (
-      <>
-        How AI changes research, communication,
-        <br />
-        decision-making, and creation.
-      </>
-    ),
-  },
-  {
-    title: "JAPAN NOTES",
-    text: (
-      <>
-        Observations from life, work, language,
-        <br />
-        and culture in Japan.
-      </>
-    ),
-  },
-  {
-    title: "BUILDING",
-    text: (
-      <>
-        Small digital projects, personal systems,
-        <br />
-        and practical experiments.
-      </>
-    ),
-  },
+const topicKeys = [
+  { title: "writing.topics.energy.title", body: "writing.topics.energy.body" },
+  { title: "writing.topics.ai.title", body: "writing.topics.ai.body" },
+  { title: "writing.topics.japan.title", body: "writing.topics.japan.body" },
+  { title: "writing.topics.building.title", body: "writing.topics.building.body" },
 ];
 
 function useWritingReveal() {
@@ -112,7 +75,7 @@ function WritingMarker({ number, label }) {
   );
 }
 
-function WritingHero() {
+function WritingHero({ lang }) {
   const [ref, isVisible] = useWritingReveal();
 
   return (
@@ -122,25 +85,21 @@ function WritingHero() {
       aria-labelledby="writing-page-title"
     >
       <div className="writing-page-inner writing-page-hero-inner">
-        <WritingMarker number="01" label="WRITING" />
+        <WritingMarker number="01" label={t(lang, "writing.marker")} />
         <h1 id="writing-page-title">
-          FIELD NOTES
+          {t(lang, "writing.hero.line1")}
           <br />
-          FOR A WORLD
+          {t(lang, "writing.hero.line2")}
           <br />
-          IN TRANSITION.
+          {t(lang, "writing.hero.line3")}
         </h1>
-        <p className="writing-page-hero-body">
-          Notes on energy, technology, Japan,
-          <br />
-          and the systems reshaping how we live and work.
-        </p>
+        <p className="writing-page-hero-body">{t(lang, "writing.hero.body")}</p>
       </div>
     </section>
   );
 }
 
-function WritingFeatured() {
+function WritingFeatured({ lang, featuredNote }) {
   const [ref, isVisible] = useWritingReveal();
 
   if (!featuredNote) {
@@ -154,14 +113,14 @@ function WritingFeatured() {
       aria-labelledby="writing-featured-title"
     >
       <div className="writing-page-inner writing-page-featured-inner">
-        <WritingMarker number="02" label="FEATURED" />
-        <a className="writing-featured-note" href={`/writing/${featuredNote.slug}`}>
-          <span className="writing-featured-kicker">FEATURED NOTE</span>
+        <WritingMarker number="02" label={t(lang, "writing.featured.marker")} />
+        <a className="writing-featured-note" href={`/writing/${featuredNote.slug}?lang=${lang}`}>
+          <span className="writing-featured-kicker">{t(lang, "writing.featured.kicker")}</span>
           <h2 id="writing-featured-title">{featuredNote.title}</h2>
           <p>{featuredNote.summary}</p>
           <span className="writing-featured-tags">{formatTags(featuredNote.tags)}</span>
           <span className="writing-featured-action">
-            READ NOTE <span aria-hidden="true">→</span>
+            {t(lang, "writing.featured.action")} <span aria-hidden="true">→</span>
           </span>
         </a>
       </div>
@@ -169,7 +128,7 @@ function WritingFeatured() {
   );
 }
 
-function WritingIndex() {
+function WritingIndex({ lang, writingEntries }) {
   const [ref, isVisible] = useWritingReveal();
 
   return (
@@ -180,14 +139,14 @@ function WritingIndex() {
     >
       <div className="writing-page-inner writing-page-index-inner">
         <div className="writing-page-section-head">
-          <WritingMarker number="03" label="INDEX" />
-          <h2 id="writing-index-title">INDEX</h2>
+          <WritingMarker number="03" label={t(lang, "writing.index.marker")} />
+          <h2 id="writing-index-title">{t(lang, "writing.index.heading")}</h2>
         </div>
         <div className="writing-index-list">
           {writingEntries.map((entry, index) => (
             <a
               className="writing-index-row"
-              href={`/writing/${entry.slug}`}
+              href={`/writing/${entry.slug}?lang=${lang}`}
               key={entry.slug}
               style={{ "--writing-page-row-index": index }}
             >
@@ -212,7 +171,7 @@ function WritingIndex() {
   );
 }
 
-function WritingTopics() {
+function WritingTopics({ lang }) {
   const [ref, isVisible] = useWritingReveal();
 
   return (
@@ -223,14 +182,14 @@ function WritingTopics() {
     >
       <div className="writing-page-inner writing-page-topics-inner">
         <div className="writing-page-section-head">
-          <WritingMarker number="04" label="TOPICS" />
-          <h2 id="writing-topics-title">TOPICS</h2>
+          <WritingMarker number="04" label={t(lang, "writing.topics.marker")} />
+          <h2 id="writing-topics-title">{t(lang, "writing.topics.heading")}</h2>
         </div>
         <div className="writing-topic-list">
-          {topicRows.map((topic, index) => (
-            <div className="writing-topic-row" key={topic.title} style={{ "--writing-page-row-index": index }}>
-              <strong>{topic.title}</strong>
-              <p>{topic.text}</p>
+          {topicKeys.map((keys, index) => (
+            <div className="writing-topic-row" key={keys.title} style={{ "--writing-page-row-index": index }}>
+              <strong>{t(lang, keys.title)}</strong>
+              <p>{t(lang, keys.body)}</p>
             </div>
           ))}
         </div>
@@ -240,16 +199,20 @@ function WritingTopics() {
 }
 
 export default function WritingPage() {
+  const lang = useLang();
+  const writingEntries = getArticleIndex(lang);
+  const featuredNote = writingEntries[0] || null;
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
   return (
     <main className="writing-page">
-      <WritingHero />
-      <WritingFeatured />
-      <WritingIndex />
-      <WritingTopics />
+      <WritingHero lang={lang} />
+      <WritingFeatured lang={lang} featuredNote={featuredNote} />
+      <WritingIndex lang={lang} writingEntries={writingEntries} />
+      <WritingTopics lang={lang} />
       <MinimalFooter />
     </main>
   );

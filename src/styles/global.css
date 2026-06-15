@@ -298,8 +298,14 @@ button {
 .nav-links a:hover,
 .language-links a:hover,
 .nav-links a.is-active,
-.mobile-panel a.is-active {
+.mobile-panel a.is-active,
+.language-links a.is-active {
   color: var(--text-primary);
+}
+
+.language-links a.is-active {
+  opacity: 1;
+  font-weight: 600;
 }
 
 .theme-toggle,

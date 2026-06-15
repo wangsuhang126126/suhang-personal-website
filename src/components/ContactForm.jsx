@@ -1,4 +1,6 @@
-export default function ContactForm() {
+import { t } from "../i18n/siteCopy.js";
+
+export default function ContactForm({ lang = "en" }) {
   return (
     <>
       {/* TODO: Connect this form to Formspree or Cloudflare Pages Functions before enabling submissions. */}
@@ -10,22 +12,22 @@ export default function ContactForm() {
         }}
       >
         <label>
-          <span>Name</span>
+          <span>{t(lang, "form.name")}</span>
           <input name="name" autoComplete="name" type="text" />
         </label>
         <label>
-          <span>Email</span>
+          <span>{t(lang, "form.email")}</span>
           <input name="email" autoComplete="email" type="email" />
         </label>
         <label>
-          <span>Topic</span>
+          <span>{t(lang, "form.topic")}</span>
           <input name="topic" type="text" />
         </label>
         <label>
-          <span>Message</span>
+          <span>{t(lang, "form.message")}</span>
           <textarea name="message" rows="5" />
         </label>
-        <button type="submit">Send Message</button>
+        <button type="submit">{t(lang, "form.submit")}</button>
       </form>
     </>
   );

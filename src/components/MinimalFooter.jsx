@@ -1,39 +1,29 @@
-const footerLinks = [
-  {
-    label: "Writing",
-    href: "/writing",
-  },
-  {
-    label: "Journey",
-    href: "/journey",
-  },
-  {
-    label: "Lab",
-    href: "/lab",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
+
+const footerNavKeys = [
+  { key: "nav.writing", href: "/writing" },
+  { key: "nav.journey", href: "/journey" },
+  { key: "nav.lab", href: "/lab" },
+  { key: "nav.about", href: "/about" },
+  { key: "nav.contact", href: "/contact" },
 ];
 
 export default function MinimalFooter() {
+  const lang = useLang();
+
   return (
     <footer className="minimal-footer" aria-label="Site footer">
       <div className="minimal-footer-inner">
         <div className="minimal-footer-meta">
-          <p>© 2026 Suhang Wang</p>
-          <p>Tokyo · Japan</p>
+          <p>{t(lang, "footer.copyright")}</p>
+          <p>{t(lang, "footer.location")}</p>
         </div>
 
         <nav className="minimal-footer-nav" aria-label="Footer navigation">
-          {footerLinks.map((link) => (
-            <a href={link.href} key={link.label}>
-              {link.label}
+          {footerNavKeys.map((link) => (
+            <a href={link.href} key={link.key}>
+              {t(lang, link.key)}
             </a>
           ))}
         </nav>
