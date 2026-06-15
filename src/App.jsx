@@ -13,6 +13,7 @@ import JourneyPage from "./pages/JourneyPage.jsx";
 import LabPage from "./pages/LabPage.jsx";
 import WritingPage from "./pages/WritingPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
 import { useTheme } from "./hooks/useTheme.js";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
   const isAboutPage = window.location.pathname === "/about";
   const isJourneyPage = window.location.pathname === "/journey";
   const isLabPage = window.location.pathname === "/lab";
+  const isContactPage = window.location.pathname === "/contact";
   const isWritingPage = window.location.pathname === "/writing";
   const pathname = typeof window.location.pathname === "string" ? window.location.pathname : "";
   const articleSlug = pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
@@ -37,7 +39,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isAboutPage || isJourneyPage || isLabPage || isWritingPage || isArticlePage || window.location.hash !== "#contact") {
+    if (
+      isAboutPage ||
+      isJourneyPage ||
+      isLabPage ||
+      isContactPage ||
+      isWritingPage ||
+      isArticlePage ||
+      window.location.hash !== "#contact"
+    ) {
       return undefined;
     }
 
@@ -54,7 +64,7 @@ export default function App() {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(timeout);
     };
-  }, [isAboutPage, isJourneyPage, isLabPage, isWritingPage, isArticlePage]);
+  }, [isAboutPage, isJourneyPage, isLabPage, isContactPage, isWritingPage, isArticlePage]);
 
   return (
     <>
@@ -65,6 +75,8 @@ export default function App() {
         <JourneyPage />
       ) : isLabPage ? (
         <LabPage />
+      ) : isContactPage ? (
+        <ContactPage />
       ) : isWritingPage ? (
         <WritingPage />
       ) : isArticlePage ? (

@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Journey", href: "/journey" },
   { label: "Lab", href: "/lab" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 const languages = ["EN", "JP", "ZH"];
 

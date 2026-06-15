@@ -17,7 +17,7 @@ const footerLinks = [
   },
   {
     label: "Contact",
-    href: "/#contact",
+    href: "/contact",
   },
 ];
 

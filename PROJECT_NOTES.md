@@ -40,9 +40,10 @@ public/
 - `/about` - About page with personal copy, photography, and image lightbox.
 - `/journey` - Journey page.
 - `/lab` - Lab project hub.
-- `/#contact` - Homepage Contact form anchor.
+- `/contact` - Standalone Contact page with contact form.
+- `/#contact` - Homepage Contact form anchor retained for backwards compatibility.
 
-Note: top navigation Contact should point to `/#contact`. Do not repeat the full Contact section on About, Writing, Journey, or Lab pages.
+Note: top navigation Contact should point to `/contact`. Do not repeat the full homepage Contact section on About, Writing, Journey, Lab, or Contact pages.
 
 ## MDX Multilingual Article System
 
