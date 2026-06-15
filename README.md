@@ -30,7 +30,7 @@ The production output is generated in:
 dist
 ```
 
-Do not commit `node_modules` or `dist`.
+Do not commit `node_modules`, `dist`, `.DS_Store`, or `.env`.
 
 ## What MDX Means Here
 
@@ -79,7 +79,7 @@ You can publish one language first and add the others later. The article page wi
 
 ## Frontmatter
 
-Every `.mdx` file needs frontmatter at the top:
+Every `.mdx` file should keep YAML frontmatter at the top for readability:
 
 ```mdx
 ---
@@ -92,6 +92,22 @@ status: "published"
 canonicalSlug: "japan-residential-energy-transition"
 ---
 ```
+
+The site reads article metadata from an explicit MDX export, so add the same metadata below the YAML block:
+
+```mdx
+export const frontmatter = {
+  title: "Japan's Residential Energy Transition: What Comes After Solar?",
+  date: "2026-06-14",
+  language: "en",
+  summary: "A closer look at how storage, VPPs, and distributed energy are reshaping the residential energy market in Japan.",
+  tags: ["Energy", "Japan", "Storage"],
+  status: "published",
+  canonicalSlug: "japan-residential-energy-transition",
+};
+```
+
+Important: do not replace this with raw MDX string parsing. A previous production crash was caused by trying to parse raw MDX with `.match()` when the build returned a non-string module shape.
 
 Fields:
 
@@ -173,7 +189,7 @@ To publish a new article:
 
 1. Create a new folder under `src/content/articles/[slug]`.
 2. Add `zh.mdx`, `ja.mdx`, and/or `en.mdx`.
-3. Fill in frontmatter.
+3. Fill in the YAML frontmatter and matching exported `frontmatter` object.
 4. Write the article content in Markdown-style MDX.
 5. Use article components only when needed.
 6. Preview locally:
