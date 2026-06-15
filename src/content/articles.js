@@ -52,7 +52,11 @@ function normalizeArticle(filePath, module) {
 
 const articles = Object.entries(mdxModules)
   .map(([filePath, module]) => normalizeArticle(filePath, module))
-  .filter((article) => article.slug && !article.slug.startsWith("_"))
+  .filter((article) => {
+    if (!article.slug) return false;
+    const parts = String(article.sourcePath).split("/");
+    return !parts.some((part) => part.startsWith("_"));
+  })
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
 const articlesBySlug = articles.reduce((groups, article) => {

@@ -10,11 +10,17 @@ function formatArticleDate(date) {
     return "DRAFT";
   }
 
-  return new Intl.DateTimeFormat("en", {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-  }).format(new Date(`${date}T00:00:00`));
+  try {
+    const parsed = new Date(`${date}T00:00:00`);
+    if (isNaN(parsed.getTime())) return "DRAFT";
+    return new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    }).format(parsed);
+  } catch {
+    return "DRAFT";
+  }
 }
 
 function formatTags(tags) {
