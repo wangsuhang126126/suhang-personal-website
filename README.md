@@ -183,28 +183,106 @@ Language-specific versions:
 /writing/japan-residential-energy-transition?lang=en
 ```
 
-## Publishing Workflow
+## How to Publish a New Multilingual Article
 
-To publish a new article:
+Ready-to-use templates live in:
 
-1. Create a new folder under `src/content/articles/[slug]`.
-2. Add `zh.mdx`, `ja.mdx`, and/or `en.mdx`.
-3. Fill in the YAML frontmatter and matching exported `frontmatter` object.
-4. Write the article content in Markdown-style MDX.
-5. Use article components only when needed.
-6. Preview locally:
+```text
+src/content/articles/_template/
+```
 
-   ```bash
-   npm run dev -- --host 127.0.0.1 --port 5187
-   ```
+Follow these steps to publish a new article:
 
-7. Build locally:
+**Step 1: Copy the template folder**
 
-   ```bash
-   npm run build
-   ```
+Duplicate `src/content/articles/_template/` and rename it to your article slug.
+The slug becomes the public URL. Use lowercase letters and hyphens only.
 
-8. Commit and push through GitHub Desktop.
+Example:
+
+```text
+src/content/articles/my-new-article/
+```
+
+**Step 2: Start with the Chinese version**
+
+Open `zh.mdx` first. Edit the frontmatter fields:
+
+- `title`: Article title in Chinese.
+- `date`: Publish date in `YYYY-MM-DD` format.
+- `summary`: One or two sentences describing the article.
+- `tags`: Relevant tags as a list.
+- `canonicalSlug`: The folder name you chose in Step 1.
+
+Update the same values in the exported `frontmatter` object below the YAML block. Both blocks must match.
+
+**Step 3: Translate into Japanese and English**
+
+Edit `ja.mdx` and `en.mdx` the same way. Use the correct `language` value for each:
+
+- `zh.mdx` → `language: "zh"`
+- `ja.mdx` → `language: "ja"`
+- `en.mdx` → `language: "en"`
+
+The `canonicalSlug` must be identical across all three files.
+
+**Step 4: Write the article body**
+
+Replace the placeholder content with your article. Available components:
+
+- `<Callout type="note">` — highlight an important observation
+- `<ArticleImage src="..." alt="..." caption="..." />` — embed an image
+- `<VideoEmbed url="..." />` — embed a YouTube video
+- `<DataCard label="..." value="..." note="..." />` — show a data point
+
+Place article images in `public/images/articles/your-article-slug/`.
+
+**Step 5: Set status to published**
+
+When the article is ready, change `status: "draft"` to `status: "published"` in both the YAML block and the exported `frontmatter` object of each language file.
+
+**Step 6: Preview locally**
+
+```bash
+npm run dev -- --host 127.0.0.1 --port 5187
+```
+
+Open the article at:
+
+```text
+http://127.0.0.1:5187/writing/your-article-slug?lang=zh
+http://127.0.0.1:5187/writing/your-article-slug?lang=ja
+http://127.0.0.1:5187/writing/your-article-slug?lang=en
+```
+
+Check that the language switcher works and all three versions render.
+
+**Step 7: Build locally**
+
+```bash
+npm run build
+```
+
+The build must pass with no errors before committing.
+
+**Step 8: Commit and push through GitHub Desktop**
+
+Open GitHub Desktop, review the changed files, write a clear commit message, and push to GitHub. Cloudflare Pages will build and deploy automatically.
+
+## Article Publishing Checklist
+
+Before pushing a new article, verify:
+
+- [ ] `zh.mdx`, `ja.mdx`, and `en.mdx` all exist in the article folder
+- [ ] All three files have both a YAML frontmatter block and an exported `frontmatter` object
+- [ ] `canonicalSlug` is identical across all three language files
+- [ ] `language` value is `zh`, `ja`, or `en` in each respective file
+- [ ] `title` and `summary` are filled in for each language
+- [ ] `status` is `"published"` in all three files
+- [ ] Images are placed under `public/images/articles/your-article-slug/`
+- [ ] `npm run build` passes with no errors
+- [ ] Article page renders at `/writing/your-article-slug`
+- [ ] Language switcher works across all three versions
 
 ## Publishing With GitHub Desktop and Cloudflare Pages
 

@@ -1,0 +1,79 @@
+---
+title: "文章标题"
+date: "YYYY-MM-DD"
+language: "zh"
+summary: "文章简介，一两句话说明主要内容。"
+tags: ["标签一", "标签二"]
+status: "draft"
+canonicalSlug: "your-article-slug"
+---
+
+export const frontmatter = {
+  title: "文章标题",
+  date: "YYYY-MM-DD",
+  language: "zh",
+  summary: "文章简介，一两句话说明主要内容。",
+  tags: ["标签一", "标签二"],
+  status: "draft",
+  canonicalSlug: "your-article-slug",
+};
+
+{/*
+  使用说明：
+  1. 将 _template 文件夹复制并重命名为文章 slug（例如 my-new-article）。
+  2. 修改上方 frontmatter 中的 title、date、summary、tags、canonicalSlug。
+  3. 三个语言文件的 canonicalSlug 必须保持一致。
+  4. 写完后将 status 改为 "published"。
+  5. 图片放在 public/images/articles/ 文件夹中。
+*/}
+
+## 文章标题
+
+在这里写开篇段落，简要介绍文章主题和你想传达的核心想法。
+
+## 第一节标题
+
+这里展开第一个主要观点。可以是背景、数据、分析或个人观察。
+
+主要内容可以列举要点：
+
+- 要点一
+- 要点二
+- 要点三
+
+> 引用或值得突出的一句话放在这里。
+
+<Callout type="note">
+用 Callout 强调重要观点或需要读者特别注意的内容。
+</Callout>
+
+## 第二节标题
+
+继续展开下一个观点或层次。
+
+<DataCard
+  label="数据标签"
+  value="核心数值或结论"
+  note="补充说明"
+/>
+
+{/* 图片示例（取消注释后使用）：
+<ArticleImage
+  src="/images/articles/your-article-slug/image-name.jpg"
+  alt="图片描述"
+  caption="图片说明文字"
+/>
+*/}
+
+{/* 视频嵌入示例（取消注释后使用）：
+<VideoEmbed
+  url="https://www.youtube.com/watch?v=VIDEO_ID"
+  title="视频标题"
+/>
+*/}
+
+## 结语
+
+用一段话总结文章的核心观点，或提出下一步思考方向。
+
+[返回 Writing](/writing)

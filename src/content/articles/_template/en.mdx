@@ -1,0 +1,79 @@
+---
+title: "Article Title"
+date: "YYYY-MM-DD"
+language: "en"
+summary: "A one or two sentence summary of the article."
+tags: ["Tag1", "Tag2"]
+status: "draft"
+canonicalSlug: "your-article-slug"
+---
+
+export const frontmatter = {
+  title: "Article Title",
+  date: "YYYY-MM-DD",
+  language: "en",
+  summary: "A one or two sentence summary of the article.",
+  tags: ["Tag1", "Tag2"],
+  status: "draft",
+  canonicalSlug: "your-article-slug",
+};
+
+{/*
+  How to use this template:
+  1. Copy the _template folder and rename it to your article slug (e.g. my-new-article).
+  2. Edit title, date, summary, tags, and canonicalSlug in the frontmatter above.
+  3. The canonicalSlug must be identical across all three language files.
+  4. Set status to "published" when the article is ready.
+  5. Place images in public/images/articles/your-article-slug/.
+*/}
+
+## Article Title
+
+Write your opening paragraph here. Briefly introduce the topic and the central idea you want to convey.
+
+## First Section Heading
+
+Develop your first main point here. This could be background, data, analysis, or a personal observation.
+
+You can list key points as bullets:
+
+- Point one
+- Point two
+- Point three
+
+> A quote or a line worth highlighting goes here.
+
+<Callout type="note">
+Use a Callout to emphasize an important observation or something you want the reader to pay special attention to.
+</Callout>
+
+## Second Section Heading
+
+Continue developing the next point or layer of the argument.
+
+<DataCard
+  label="Data label"
+  value="Core figure or conclusion"
+  note="Supplementary note"
+/>
+
+{/* Image example (uncomment to use):
+<ArticleImage
+  src="/images/articles/your-article-slug/image-name.jpg"
+  alt="Description of the image"
+  caption="Image caption text"
+/>
+*/}
+
+{/* Video embed example (uncomment to use):
+<VideoEmbed
+  url="https://www.youtube.com/watch?v=VIDEO_ID"
+  title="Video title"
+/>
+*/}
+
+## Closing Note
+
+Summarize the core point of the article, or suggest a direction for further thinking.
+
+[Back to Writing](/writing)

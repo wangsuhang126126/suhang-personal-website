@@ -1,0 +1,79 @@
+---
+title: "記事タイトル"
+date: "YYYY-MM-DD"
+language: "ja"
+summary: "記事の概要を1〜2文で書いてください。"
+tags: ["タグ1", "タグ2"]
+status: "draft"
+canonicalSlug: "your-article-slug"
+---
+
+export const frontmatter = {
+  title: "記事タイトル",
+  date: "YYYY-MM-DD",
+  language: "ja",
+  summary: "記事の概要を1〜2文で書いてください。",
+  tags: ["タグ1", "タグ2"],
+  status: "draft",
+  canonicalSlug: "your-article-slug",
+};
+
+{/*
+  使い方：
+  1. _template フォルダをコピーして、記事の slug にリネームする（例：my-new-article）。
+  2. 上の frontmatter の title、date、summary、tags、canonicalSlug を編集する。
+  3. 3つの言語ファイルで canonicalSlug は同じ値にする。
+  4. 書き終えたら status を "published" に変更する。
+  5. 画像は public/images/articles/ に配置する。
+*/}
+
+## 記事タイトル
+
+ここに導入段落を書いてください。記事のテーマと伝えたい中心的な考えを簡潔に紹介します。
+
+## 第1セクションの見出し
+
+最初の主なポイントをここで展開します。背景、データ、分析、または個人的な観察を書いてください。
+
+主な内容を箇条書きにすることもできます：
+
+- ポイント1
+- ポイント2
+- ポイント3
+
+> 引用や特に強調したい一文はここに書きます。
+
+<Callout type="note">
+重要なポイントや読者に特に注意してほしい内容を Callout で強調します。
+</Callout>
+
+## 第2セクションの見出し
+
+次の観点や論点を展開します。
+
+<DataCard
+  label="データラベル"
+  value="核となる数値または結論"
+  note="補足説明"
+/>
+
+{/* 画像の例（コメントを外して使用）：
+<ArticleImage
+  src="/images/articles/your-article-slug/image-name.jpg"
+  alt="画像の説明"
+  caption="画像のキャプション"
+/>
+*/}
+
+{/* 動画埋め込みの例（コメントを外して使用）：
+<VideoEmbed
+  url="https://www.youtube.com/watch?v=VIDEO_ID"
+  title="動画タイトル"
+/>
+*/}
+
+## まとめ
+
+記事の核心的なポイントをまとめるか、次のステップや考えるべき方向性を示します。
+
+[Writing に戻る](/writing)
