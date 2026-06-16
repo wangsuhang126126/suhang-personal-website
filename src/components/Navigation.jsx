@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavigationBrand from "./NavigationBrand.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import { useLang } from "../hooks/useLang.js";
-import { t } from "../i18n/siteCopy.js";
+import { t, withLang } from "../i18n/siteCopy.js";
 
 const navKeys = [
   { key: "nav.writing", href: "/writing" },
@@ -59,7 +59,7 @@ export default function Navigation({ theme, onToggleTheme }) {
             {navKeys.map((link) => (
               <a
                 className={currentPath === link.href ? "is-active" : undefined}
-                href={link.href}
+                href={withLang(link.href, lang)}
                 key={link.key}
               >
                 {t(lang, link.key)}
@@ -99,7 +99,7 @@ export default function Navigation({ theme, onToggleTheme }) {
           {navKeys.map((link) => (
             <a
               className={currentPath === link.href ? "is-active" : undefined}
-              href={link.href}
+              href={withLang(link.href, lang)}
               key={link.key}
               onClick={() => setMenuOpen(false)}
             >

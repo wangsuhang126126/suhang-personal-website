@@ -1,6 +1,8 @@
-export default function FeaturedNote() {
+import { withLang } from "../i18n/siteCopy.js";
+
+export default function FeaturedNote({ lang }) {
   return (
-    <a className="featured-note" href="/writing" aria-label="Read note: Japan's Residential Energy Transition: What Comes After Solar?">
+    <a className="featured-note" href={withLang("/writing", lang)} aria-label="Read note: Japan's Residential Energy Transition: What Comes After Solar?">
       <span className="featured-note-kicker">FEATURED NOTE</span>
       <span className="featured-note-title">
         Japan&rsquo;s Residential Energy Transition:

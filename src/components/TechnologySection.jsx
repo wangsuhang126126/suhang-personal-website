@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import TechnologyMobileFlow from "./TechnologyMobileFlow.jsx";
 import WorkflowNetwork from "./WorkflowNetwork.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
 const workflowNodes = [
   {
@@ -36,6 +38,7 @@ const workflowNodes = [
 ];
 
 export default function TechnologySection() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -69,9 +72,7 @@ export default function TechnologySection() {
 
   return (
     <section
-      className={`technology-section${isVisible ? " is-visible" : ""}${
-        isActive ? " is-active" : ""
-      }`}
+      className={`technology-section${isVisible ? " is-visible" : ""}${isActive ? " is-active" : ""}`}
       id="technology"
       ref={sectionRef}
       aria-labelledby="technology-title"
@@ -81,18 +82,14 @@ export default function TechnologySection() {
         <div className="technology-copy">
           <p className="section-marker">
             <span>03</span>
-            <span>TECHNOLOGY</span>
+            <span>{t(lang, "home.technology.marker")}</span>
           </p>
           <h2 id="technology-title">
-            TOOLS THAT CHANGE
+            {t(lang, "home.technology.heading.line1")}
             <br />
-            THE WAY WE WORK.
+            {t(lang, "home.technology.heading.line2")}
           </h2>
-          <p className="technology-body">
-            AI is most useful when it sharpens judgment, accelerates research, and improves
-            execution. The goal is not automation for its own sake, but better decisions and better
-            work.
-          </p>
+          <p className="technology-body">{t(lang, "home.technology.body")}</p>
         </div>
 
         <WorkflowNetwork nodes={workflowNodes} />

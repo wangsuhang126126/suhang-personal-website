@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import FeaturedNote from "./FeaturedNote.jsx";
 import WritingPreviewRow from "./WritingPreviewRow.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { withLang } from "../i18n/siteCopy.js";
 
 const notes = [
   {
@@ -18,6 +20,7 @@ const notes = [
 ];
 
 export default function WritingPreviewSection() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -76,14 +79,14 @@ export default function WritingPreviewSection() {
 
         <div className="writing-preview-index" aria-label="Selected writing previews">
           <div className="writing-divider writing-divider-top" aria-hidden="true" />
-          <FeaturedNote />
+          <FeaturedNote lang={lang} />
           <div className="writing-divider" aria-hidden="true" />
           <div className="writing-preview-rows">
             {notes.map((note, index) => (
-              <WritingPreviewRow key={note.number} note={note} index={index} />
+              <WritingPreviewRow key={note.number} note={note} index={index} lang={lang} />
             ))}
           </div>
-          <a className="writing-all-link" href="/writing">
+          <a className="writing-all-link" href={withLang("/writing", lang)}>
             VIEW ALL WRITING <span aria-hidden="true">→</span>
           </a>
         </div>

@@ -87,11 +87,13 @@ function WritingHero({ lang }) {
       <div className="writing-page-inner writing-page-hero-inner">
         <WritingMarker number="01" label={t(lang, "writing.marker")} />
         <h1 id="writing-page-title">
-          {t(lang, "writing.hero.line1")}
-          <br />
-          {t(lang, "writing.hero.line2")}
-          <br />
-          {t(lang, "writing.hero.line3")}
+          {[t(lang, "writing.hero.line1"), t(lang, "writing.hero.line2"), t(lang, "writing.hero.line3")]
+            .filter(Boolean)
+            .reduce((acc, line, i, arr) => {
+              acc.push(line);
+              if (i < arr.length - 1) acc.push(<br key={i} />);
+              return acc;
+            }, [])}
         </h1>
         <p className="writing-page-hero-body">{t(lang, "writing.hero.body")}</p>
       </div>

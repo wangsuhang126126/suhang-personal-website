@@ -15,9 +15,12 @@ import WritingPage from "./pages/WritingPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import { useTheme } from "./hooks/useTheme.js";
+import { useLang } from "./hooks/useLang.js";
+import { t } from "./i18n/siteCopy.js";
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
+  const lang = useLang();
   const [scrollProgress, setScrollProgress] = useState(0);
   const isAboutPage = window.location.pathname === "/about";
   const isJourneyPage = window.location.pathname === "/journey";
@@ -27,6 +30,10 @@ export default function App() {
   const pathname = typeof window.location.pathname === "string" ? window.location.pathname : "";
   const articleSlug = pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
   const isArticlePage = Boolean(articleSlug);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-lang", lang);
+  }, [lang]);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -91,7 +98,7 @@ export default function App() {
             <EnergyHorizon scrollProgress={scrollProgress} />
             <HeroContent />
             <div className="scroll-hint" aria-hidden="true">
-              <span>SCROLL TO EXPLORE</span>
+              <span>{t(lang, "home.hero.scroll")}</span>
               <span>↓</span>
             </div>
           </section>

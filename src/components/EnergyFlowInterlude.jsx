@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import { useDampedScrollProgress } from "../hooks/useDampedScrollProgress.js";
 import EnergySystemVisual from "./EnergySystemVisual.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
 export default function EnergyFlowInterlude() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const progress = useDampedScrollProgress(sectionRef);
 
@@ -17,31 +20,25 @@ export default function EnergyFlowInterlude() {
         <div className="energy-flow-inner">
           <div className="geo-handoff" aria-hidden="true">
             <p>
-              CHINA.
+              {t(lang, "home.flow.geo.line1")}
               <br />
-              JAPAN.
+              {t(lang, "home.flow.geo.line2")}
               <br />
-              THE WORLD BEYOND.
+              {t(lang, "home.flow.geo.line3")}
             </p>
           </div>
 
           <div className="energy-flow-copy">
             <p className="section-marker">
-              <span>ENERGY</span>
-              <span>IN MOTION</span>
+              <span>{t(lang, "home.flow.marker.a")}</span>
+              <span>{t(lang, "home.flow.marker.b")}</span>
             </p>
             <h2 id="energy-flow-title">
-              FROM SUNLIGHT
+              {t(lang, "home.flow.heading.line1")}
               <br />
-              TO SYSTEM.
+              {t(lang, "home.flow.heading.line2")}
             </h2>
-            <p className="energy-flow-body">
-              Clean energy becomes more valuable
-              <br />
-              when it can be stored, connected,
-              <br />
-              and intelligently coordinated.
-            </p>
+            <p className="energy-flow-body">{t(lang, "home.flow.body")}</p>
           </div>
 
           <EnergySystemVisual />

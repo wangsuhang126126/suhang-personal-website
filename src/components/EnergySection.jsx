@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import EnergyLayer from "./EnergyLayer.jsx";
 import EnergyPulse from "./EnergyPulse.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
 const layers = [
   {
@@ -27,6 +29,7 @@ const layers = [
 ];
 
 export default function EnergySection() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -70,17 +73,13 @@ export default function EnergySection() {
         <div className="energy-copy">
           <p className="section-marker">
             <span>02</span>
-            <span>ENERGY</span>
+            <span>{t(lang, "home.energy.marker")}</span>
           </p>
           <h2 id="energy-title">
-            <span className="energy-title-line">FROM GENERATION</span>
-            <span className="energy-title-line">TO ORCHESTRATION.</span>
+            <span className="energy-title-line">{t(lang, "home.energy.heading.line1")}</span>
+            <span className="energy-title-line">{t(lang, "home.energy.heading.line2")}</span>
           </h2>
-          <p className="energy-body">
-            The energy transition is no longer only about generating cleaner electricity. It is
-            increasingly about where energy is stored, how it is coordinated, and how homes
-            participate in the grid.
-          </p>
+          <p className="energy-body">{t(lang, "home.energy.body")}</p>
         </div>
 
         <div className="energy-system" aria-label="Generate, store, orchestrate energy system">

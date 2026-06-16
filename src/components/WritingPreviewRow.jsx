@@ -1,8 +1,10 @@
-export default function WritingPreviewRow({ note, index }) {
+import { withLang } from "../i18n/siteCopy.js";
+
+export default function WritingPreviewRow({ note, index, lang }) {
   return (
     <a
       className="writing-preview-row"
-      href="/writing"
+      href={withLang("/writing", lang)}
       style={{ "--writing-row-index": index }}
       aria-label={`Read writing preview: ${note.title}`}
     >

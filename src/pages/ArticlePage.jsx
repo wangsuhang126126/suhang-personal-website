@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import MinimalFooter from "../components/MinimalFooter.jsx";
 import { articleMdxComponents } from "../components/mdx/ArticleMdxComponents.jsx";
 import { getArticle, getArticleVersions } from "../content/articles.js";
+import { withLang } from "../i18n/siteCopy.js";
 
 const languageLabels = {
   zh: "ZH",
@@ -46,7 +47,7 @@ export default function ArticlePage({ slug }) {
             </p>
             <h1 id="article-not-found-title">ARTICLE NOT FOUND.</h1>
             <p>The article you are looking for is not available yet.</p>
-            <a href="/writing">BACK TO WRITING →</a>
+            <a href={withLang("/writing", requestedLanguage)}>BACK TO WRITING →</a>
           </div>
         </section>
         <MinimalFooter />
@@ -60,7 +61,7 @@ export default function ArticlePage({ slug }) {
     <main className="article-page">
       <article className="article-detail" aria-labelledby="article-title">
         <div className="article-page-inner">
-          <a className="article-back-link" href="/writing">
+          <a className="article-back-link" href={withLang("/writing", requestedLanguage)}>
             ← WRITING
           </a>
 

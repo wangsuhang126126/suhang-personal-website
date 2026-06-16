@@ -6314,3 +6314,23 @@ button {
     animation: none !important;
   }
 }
+
+/* ─── Language-aware hero typography (zh / ja) ─────────────────────────────── */
+
+[data-lang="zh"] .writing-page-hero h1,
+[data-lang="zh"] .writing-page-section h2,
+[data-lang="ja"] .writing-page-hero h1,
+[data-lang="ja"] .writing-page-section h2 {
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
+  line-height: 1.1;
+}
+
+[data-lang="zh"] .hero h1,
+[data-lang="ja"] .hero h1 {
+  line-height: 1.12;
+}
+
+[data-lang="zh"] .contact-page-copy h1,
+[data-lang="ja"] .contact-page-copy h1 {
+  line-height: 1.15;
+}

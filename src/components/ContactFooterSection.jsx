@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ContactForm from "./ContactForm.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { withLang } from "../i18n/siteCopy.js";
 
 const footerLinks = [
   {
@@ -17,6 +19,7 @@ const footerLinks = [
 ];
 
 export default function ContactFooterSection() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -90,7 +93,7 @@ export default function ContactFooterSection() {
             {footerLinks.map((link, index) => (
               <a
                 className="contact-link contact-link-nav"
-                href={link.href}
+                href={withLang(link.href, lang)}
                 key={link.text}
                 style={{ "--contact-link-index": index }}
               >

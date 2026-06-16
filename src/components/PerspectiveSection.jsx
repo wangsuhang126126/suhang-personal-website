@@ -1,29 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import PerspectiveVector from "./PerspectiveVector.jsx";
 import TokyoTransitionLine from "./TokyoTransitionLine.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
-const vectors = [
+const vectorKeys = [
   {
     number: "01",
     title: "CHINA → JAPAN → GLOBAL",
-    label: "GEOGRAPHIC VECTOR",
-    text: "A perspective shaped across borders, languages, and markets.",
+    labelKey: "home.perspective.v1.label",
+    textKey: "home.perspective.v1.text",
   },
   {
     number: "02",
     title: "SOLAR → ENERGY STORAGE → FUTURE SYSTEMS",
-    label: "ENERGY VECTOR",
-    text: "A professional journey through the evolving energy transition.",
+    labelKey: "home.perspective.v2.label",
+    textKey: "home.perspective.v2.text",
   },
   {
     number: "03",
     title: "BUSINESS → TECHNOLOGY → AI",
-    label: "TECHNOLOGY VECTOR",
-    text: "A growing interest in how tools reshape decisions, work, and society.",
+    labelKey: "home.perspective.v3.label",
+    textKey: "home.perspective.v3.text",
   },
 ];
 
 export default function PerspectiveSection() {
+  const lang = useLang();
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -53,6 +56,13 @@ export default function PerspectiveSection() {
     return () => observer.disconnect();
   }, []);
 
+  const vectors = vectorKeys.map((v) => ({
+    number: v.number,
+    title: v.title,
+    label: t(lang, v.labelKey),
+    text: t(lang, v.textKey),
+  }));
+
   return (
     <section
       className={`perspective-section${isVisible ? " is-visible" : ""}`}
@@ -65,19 +75,16 @@ export default function PerspectiveSection() {
         <div className="perspective-copy">
           <p className="section-marker">
             <span>01</span>
-            <span>PERSPECTIVE</span>
+            <span>{t(lang, "home.perspective.marker")}</span>
           </p>
           <h2 id="perspective-title">
-            THREE PATHS
+            {t(lang, "home.perspective.heading.line1")}
             <br />
-            SHAPE THE WAY
+            {t(lang, "home.perspective.heading.line2")}
             <br />
-            I SEE THE FUTURE.
+            {t(lang, "home.perspective.heading.line3")}
           </h2>
-          <p className="perspective-body">
-            Born in Xi’an and shaped by more than a decade of living and working in Japan, I
-            observe energy, technology, and international business through three intersecting paths.
-          </p>
+          <p className="perspective-body">{t(lang, "home.perspective.body")}</p>
         </div>
 
         <div className="vector-list" aria-label="Three perspective vectors">

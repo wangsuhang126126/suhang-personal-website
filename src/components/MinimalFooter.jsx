@@ -1,5 +1,5 @@
 import { useLang } from "../hooks/useLang.js";
-import { t } from "../i18n/siteCopy.js";
+import { t, withLang } from "../i18n/siteCopy.js";
 
 const footerNavKeys = [
   { key: "nav.writing", href: "/writing" },
@@ -22,7 +22,7 @@ export default function MinimalFooter() {
 
         <nav className="minimal-footer-nav" aria-label="Footer navigation">
           {footerNavKeys.map((link) => (
-            <a href={link.href} key={link.key}>
+            <a href={withLang(link.href, lang)} key={link.key}>
               {t(lang, link.key)}
             </a>
           ))}
