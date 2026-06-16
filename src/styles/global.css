@@ -2086,7 +2086,7 @@ button {
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 16%, transparent) calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 16%, transparent) 50%, transparent 50%),
+    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 6%, transparent) calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 6%, transparent) 50%, transparent 50%),
     radial-gradient(circle at 82% 12%, color-mix(in srgb, var(--accent-warm) 5%, transparent), transparent 32rem),
     linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 91%, var(--bg-secondary)) 0%, var(--bg-primary) 100%);
   color: var(--text-primary);
@@ -2094,7 +2094,7 @@ button {
 
 :root[data-theme="dark"] .journey-page {
   background:
-    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 18%, transparent) calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 18%, transparent) 50%, transparent 50%),
+    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 7%, transparent) calc(50% - 1px), color-mix(in srgb, var(--accent-energy) 7%, transparent) 50%, transparent 50%),
     radial-gradient(circle at 82% 12%, color-mix(in srgb, var(--accent-warm) 6%, transparent), transparent 32rem),
     linear-gradient(180deg, #111316 0%, var(--bg-primary) 100%);
 }
@@ -2393,19 +2393,15 @@ button {
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 34%, transparent) 1px, transparent 1px),
     radial-gradient(circle at 78% 10%, color-mix(in srgb, var(--accent-energy) 5%, transparent), transparent 30rem),
     linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 92%, var(--bg-secondary)) 0%, var(--bg-primary) 100%);
-  background-size: 18rem 100%, auto, auto;
   color: var(--text-primary);
 }
 
 :root[data-theme="dark"] .lab-page {
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 30%, transparent) 1px, transparent 1px),
     radial-gradient(circle at 78% 10%, color-mix(in srgb, var(--accent-energy) 7%, transparent), transparent 30rem),
     linear-gradient(180deg, #111316 0%, var(--bg-primary) 100%);
-  background-size: 18rem 100%, auto, auto;
 }
 
 .lab-placeholder-section {
@@ -2589,10 +2585,8 @@ button {
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 42%, transparent) 1px, transparent 1px),
     radial-gradient(circle at 78% 10%, color-mix(in srgb, var(--accent-warm) 6%, transparent), transparent 30rem),
     linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 90%, #f5f4f1) 0%, var(--bg-primary) 100%);
-  background-size: 22rem 100%, auto, auto;
   color: var(--text-primary);
 }
 
@@ -2950,19 +2944,15 @@ button {
   min-height: 100vh;
   overflow: hidden;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 28%, transparent) 1px, transparent 1px),
     radial-gradient(circle at 78% 8%, color-mix(in srgb, var(--accent-warm) 5%, transparent), transparent 30rem),
     linear-gradient(180deg, color-mix(in srgb, var(--bg-primary) 92%, #f7f4f1) 0%, var(--bg-primary) 100%);
-  background-size: 22rem 100%, auto, auto;
   color: var(--text-primary);
 }
 
 :root[data-theme="dark"] .article-page {
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 22%, transparent) 1px, transparent 1px),
     radial-gradient(circle at 78% 8%, color-mix(in srgb, var(--accent-warm) 5%, transparent), transparent 30rem),
     linear-gradient(180deg, #111316 0%, var(--bg-primary) 100%);
-  background-size: 22rem 100%, auto, auto;
 }
 
 .article-detail,
@@ -3941,18 +3931,12 @@ button {
 
 .contact-page {
   min-height: 100vh;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 24%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--bg-primary) 92%, #f4f0eb);
-  background-size: 20rem 100%, auto;
+  background: color-mix(in srgb, var(--bg-primary) 92%, #f4f0eb);
   color: var(--text-primary);
 }
 
 :root[data-theme="dark"] .contact-page {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 18%, transparent) 1px, transparent 1px),
-    #111316;
-  background-size: 20rem 100%, auto;
+  background: #111316;
 }
 
 .contact-page-section {
