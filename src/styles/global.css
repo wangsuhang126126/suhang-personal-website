@@ -6334,3 +6334,41 @@ button {
 [data-lang="ja"] .contact-page-copy h1 {
   line-height: 1.15;
 }
+
+/* ─── About page CJK heading typography ────────────────────────────────────── */
+
+[data-lang="zh"] .about-section h1,
+[data-lang="ja"] .about-section h1 {
+  font-size: clamp(2.4rem, 4.5vw, 5rem);
+  line-height: 1.1;
+}
+
+[data-lang="zh"] .about-section h2,
+[data-lang="ja"] .about-section h2 {
+  font-size: clamp(2.1rem, 4vw, 4.4rem);
+  line-height: 1.12;
+}
+
+/* ─── Article disclaimer / editorial note (paragraph after hr) ─────────────── */
+
+.article-prose hr {
+  margin: clamp(32px, 5vh, 48px) 0 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--border-subtle) 55%, transparent);
+}
+
+.article-prose hr + p {
+  margin-top: 18px;
+  font-size: 0.8em;
+  line-height: 1.68;
+  color: color-mix(in srgb, var(--text-muted) 90%, var(--text-secondary));
+  font-style: italic;
+}
+
+/* ─── Perspective section CJK heading typography ───────────────────────────── */
+
+[data-lang="zh"] .perspective-copy h2,
+[data-lang="ja"] .perspective-copy h2 {
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
+  line-height: 1.14;
+}

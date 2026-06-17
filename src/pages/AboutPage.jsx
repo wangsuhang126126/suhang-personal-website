@@ -1,134 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import ImageLightbox from "../components/ImageLightbox.jsx";
 import MinimalFooter from "../components/MinimalFooter.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
-const pathRows = [
-  {
-    number: "01",
-    title: "MARKETS",
-    text: (
-      <>
-        Understanding how products meet
-        <br />
-        real customer needs.
-      </>
-    ),
-  },
-  {
-    number: "02",
-    title: "TECHNOLOGY",
-    text: (
-      <>
-        Translating complex tools
-        <br />
-        into useful outcomes.
-      </>
-    ),
-  },
-  {
-    number: "03",
-    title: "ENERGY",
-    text: (
-      <>
-        Working on problems
-        <br />
-        with long-term significance.
-      </>
-    ),
-  },
-  {
-    number: "04",
-    title: "BUILDING",
-    text: (
-      <>
-        Turning ideas into something
-        <br />
-        people can actually use.
-      </>
-    ),
-  },
+const pathRowKeys = [
+  { number: "01", titleKey: "about.path.row1.title", textKey: "about.path.row1.text" },
+  { number: "02", titleKey: "about.path.row2.title", textKey: "about.path.row2.text" },
+  { number: "03", titleKey: "about.path.row3.title", textKey: "about.path.row3.text" },
+  { number: "04", titleKey: "about.path.row4.title", textKey: "about.path.row4.text" },
 ];
 
-const beyondRows = [
-  {
-    title: "LEARNING",
-    text: (
-      <>
-        Languages, books,
-        <br />
-        and the habit of starting again.
-      </>
-    ),
-  },
-  {
-    title: "BUILDING",
-    text: (
-      <>
-        Websites, small tools,
-        <br />
-        and experiments with AI.
-      </>
-    ),
-  },
-  {
-    title: "PLACES",
-    text: (
-      <>
-        Travel, cities,
-        <br />
-        and the texture of everyday life.
-      </>
-    ),
-  },
-  {
-    title: "LIFE",
-    text: (
-      <>
-        Music, photography,
-        <br />
-        and time with the people close to me.
-      </>
-    ),
-  },
+const beyondRowKeys = [
+  { titleKey: "about.beyond.row1.title", textKey: "about.beyond.row1.text" },
+  { titleKey: "about.beyond.row2.title", textKey: "about.beyond.row2.text" },
+  { titleKey: "about.beyond.row3.title", textKey: "about.beyond.row3.text" },
+  { titleKey: "about.beyond.row4.title", textKey: "about.beyond.row4.text" },
 ];
 
-const directionRows = [
-  {
-    number: "01",
-    title: "DEPTH",
-    text: (
-      <>
-        Become a stronger practitioner,
-        <br />
-        not simply a more experienced salesperson.
-      </>
-    ),
-  },
-  {
-    number: "02",
-    title: "TOOLS",
-    text: (
-      <>
-        Use AI to think, research,
-        <br />
-        communicate, and build more effectively.
-      </>
-    ),
-  },
-  {
-    number: "03",
-    title: "BALANCE",
-    text: (
-      <>
-        Make room for work that matters
-        <br />
-        and a life that remains fully lived.
-      </>
-    ),
-  },
+const directionRowKeys = [
+  { number: "01", titleKey: "about.direction.row1.title", textKey: "about.direction.row1.text" },
+  { number: "02", titleKey: "about.direction.row2.title", textKey: "about.direction.row2.text" },
+  { number: "03", titleKey: "about.direction.row3.title", textKey: "about.direction.row3.text" },
 ];
 
-const personalDimensions = ["Work", "Japan", "Energy", "AI", "Life", "Curiosity"];
+const personalDimensionKeys = ["work", "japan", "energy", "ai", "life", "curiosity"];
 
 const beyondImages = [
   {
@@ -187,21 +83,30 @@ function SectionMarker({ number, label }) {
   );
 }
 
-function EditorialRows({ rows, numbered = true }) {
+function HeadingLines({ lang, line1Key, line2Key }) {
+  const lines = [t(lang, line1Key), t(lang, line2Key)].filter(Boolean);
+  return lines.reduce((acc, line, i, arr) => {
+    acc.push(line);
+    if (i < arr.length - 1) acc.push(<br key={i} />);
+    return acc;
+  }, []);
+}
+
+function EditorialRows({ rows, lang, numbered = true }) {
   return (
     <div className="about-editorial-rows">
       {rows.map((row, index) => (
-        <div className="about-editorial-row" key={row.title} style={{ "--about-row-index": index }}>
+        <div className="about-editorial-row" key={row.titleKey} style={{ "--about-row-index": index }}>
           {numbered ? <span className="about-row-number">{row.number}</span> : null}
-          <strong>{row.title}</strong>
-          <p>{row.text}</p>
+          <strong>{t(lang, row.titleKey)}</strong>
+          <p>{t(lang, row.textKey)}</p>
         </div>
       ))}
     </div>
   );
 }
 
-function AboutIntroduction() {
+function AboutIntroduction({ lang }) {
   const [ref, isVisible] = useReveal();
 
   return (
@@ -212,11 +117,9 @@ function AboutIntroduction() {
     >
       <div className="about-introduction-inner">
         <div className="about-introduction-copy">
-          <SectionMarker number="01" label="ABOUT" />
+          <SectionMarker number="01" label={t(lang, "about.intro.marker")} />
           <h1 id="about-introduction-title">
-            A LIFE
-            <br />
-            IN PROGRESS.
+            <HeadingLines lang={lang} line1Key="about.intro.h1.line1" line2Key="about.intro.h1.line2" />
           </h1>
           <div className="about-name-lockup" aria-label="Suhang Wang multilingual name">
             <p>Suhang Wang (Frank)</p>
@@ -224,25 +127,13 @@ function AboutIntroduction() {
             <p lang="ja">王 蘇杭（おう そこう）</p>
           </div>
           <div className="about-dimensions" aria-label="Personal dimensions">
-            {personalDimensions.map((dimension) => (
-              <span key={dimension}>{dimension}</span>
+            {personalDimensionKeys.map((key) => (
+              <span key={key}>{t(lang, `about.intro.dim.${key}`)}</span>
             ))}
           </div>
           <div className="about-body-copy">
-            <p>
-              Over the years, I have moved across places,
-              <br />
-              industries, and different ways of thinking.
-            </p>
-            <p>
-              The path has not always been predictable,
-              <br />
-              but it has gradually clarified what matters to me:
-              <br />
-              useful work, thoughtful collaboration,
-              <br />
-              and the discipline to keep learning.
-            </p>
+            <p>{t(lang, "about.intro.body.p1")}</p>
+            <p>{t(lang, "about.intro.body.p2")}</p>
           </div>
         </div>
         <figure className="about-portrait">
@@ -256,7 +147,7 @@ function AboutIntroduction() {
   );
 }
 
-function AboutPathSection() {
+function AboutPathSection({ lang }) {
   const [ref, isVisible] = useReveal();
 
   return (
@@ -267,49 +158,25 @@ function AboutPathSection() {
     >
       <div className="about-section-inner about-path-inner">
         <div className="about-section-copy">
-          <SectionMarker number="02" label="PATH" />
+          <SectionMarker number="02" label={t(lang, "about.path.marker")} />
           <h2 id="about-path-title">
-            FINDING
-            <br />
-            THE THREAD.
+            <HeadingLines lang={lang} line1Key="about.path.h2.line1" line2Key="about.path.h2.line2" />
           </h2>
         </div>
         <div className="about-section-detail">
           <div className="about-body-copy">
-            <p>
-              My path has included international business,
-              <br />
-              consumer products, internet platforms,
-              <br />
-              enterprise technology, solar energy,
-              <br />
-              and energy storage.
-            </p>
-            <p>
-              Some transitions opened new possibilities.
-              <br />
-              Others sharpened my understanding of where
-              <br />
-              I can contribute best.
-            </p>
-            <p>
-              Over time, the thread became clearer:
-              <br />
-              I am most engaged when the work is connected
-              <br />
-              to a real market, a real customer need,
-              <br />
-              and a problem worth solving for the long term.
-            </p>
+            <p>{t(lang, "about.path.body.p1")}</p>
+            <p>{t(lang, "about.path.body.p2")}</p>
+            <p>{t(lang, "about.path.body.p3")}</p>
           </div>
-          <EditorialRows rows={pathRows} />
+          <EditorialRows rows={pathRowKeys} lang={lang} />
         </div>
       </div>
     </section>
   );
 }
 
-function BeyondWorkSection() {
+function BeyondWorkSection({ lang }) {
   const [ref, isVisible] = useReveal();
   const [activeImageIndex, setActiveImageIndex] = useState(null);
   const imageButtonRefs = useRef([]);
@@ -328,43 +195,15 @@ function BeyondWorkSection() {
     >
       <div className="about-beyond-inner">
         <div className="about-beyond-copy">
-          <SectionMarker number="03" label="BEYOND WORK" />
+          <SectionMarker number="03" label={t(lang, "about.beyond.marker")} />
           <h2 id="about-beyond-title">
-            WHAT KEEPS
-            <br />
-            ME CURIOUS.
+            <HeadingLines lang={lang} line1Key="about.beyond.h2.line1" line2Key="about.beyond.h2.line2" />
           </h2>
           <div className="about-body-copy">
-            <p>
-              Outside work, I am drawn to learning
-              <br />
-              in many different forms.
-            </p>
-            <p>
-              I enjoy languages, books, music, photography,
-              <br />
-              travel, and the small digital projects
-              <br />
-              that AI now makes possible.
-            </p>
-            <p>
-              I like the feeling of becoming a beginner again:
-              <br />
-              testing a new tool, learning a new phrase,
-              <br />
-              noticing a city more carefully,
-              <br />
-              or making something that did not exist
-              <br />
-              the day before.
-            </p>
-            <p>
-              Not every interest needs to become a project.
-              <br />
-              Some simply make life richer
-              <br />
-              and keep work in perspective.
-            </p>
+            <p>{t(lang, "about.beyond.body.p1")}</p>
+            <p>{t(lang, "about.beyond.body.p2")}</p>
+            <p>{t(lang, "about.beyond.body.p3")}</p>
+            <p>{t(lang, "about.beyond.body.p4")}</p>
           </div>
         </div>
         <div className="about-beyond-images">
@@ -384,7 +223,7 @@ function BeyondWorkSection() {
             </figure>
           ))}
         </div>
-        <EditorialRows rows={beyondRows} numbered={false} />
+        <EditorialRows rows={beyondRowKeys} lang={lang} numbered={false} />
       </div>
       {activeImageIndex !== null ? (
         <ImageLightbox
@@ -398,7 +237,7 @@ function BeyondWorkSection() {
   );
 }
 
-function AboutDirectionSection() {
+function AboutDirectionSection({ lang }) {
   const [ref, isVisible] = useReveal();
 
   return (
@@ -409,43 +248,19 @@ function AboutDirectionSection() {
     >
       <div className="about-section-inner about-direction-inner">
         <div className="about-section-copy">
-          <SectionMarker number="04" label="DIRECTION" />
+          <SectionMarker number="04" label={t(lang, "about.direction.marker")} />
           <h2 id="about-direction-title">
-            BUILDING
-            <br />
-            WITH INTENT.
+            <HeadingLines lang={lang} line1Key="about.direction.h2.line1" line2Key="about.direction.h2.line2" />
           </h2>
         </div>
         <div className="about-section-detail">
           <div className="about-body-copy">
-            <p>
-              I am less interested in collecting titles
-              <br />
-              than in developing depth.
-            </p>
-            <p>
-              In energy, I want to understand the market,
-              <br />
-              the technology, and the systems around it
-              <br />
-              well enough to contribute with judgment.
-            </p>
-            <p>
-              In AI, I want to use tools practically:
-              <br />
-              for research, decision-making,
-              <br />
-              communication, and creation.
-            </p>
-            <p>
-              And beyond work, I want to leave enough room
-              <br />
-              for curiosity, the people close to me,
-              <br />
-              and the experiences that make a life feel whole.
-            </p>
+            <p>{t(lang, "about.direction.body.p1")}</p>
+            <p>{t(lang, "about.direction.body.p2")}</p>
+            <p>{t(lang, "about.direction.body.p3")}</p>
+            <p>{t(lang, "about.direction.body.p4")}</p>
           </div>
-          <EditorialRows rows={directionRows} />
+          <EditorialRows rows={directionRowKeys} lang={lang} />
         </div>
       </div>
     </section>
@@ -453,12 +268,14 @@ function AboutDirectionSection() {
 }
 
 export default function AboutPage() {
+  const lang = useLang();
+
   return (
     <main className="about-page">
-      <AboutIntroduction />
-      <AboutPathSection />
-      <BeyondWorkSection />
-      <AboutDirectionSection />
+      <AboutIntroduction lang={lang} />
+      <AboutPathSection lang={lang} />
+      <BeyondWorkSection lang={lang} />
+      <AboutDirectionSection lang={lang} />
       <MinimalFooter />
     </main>
   );
