@@ -6372,3 +6372,13 @@ button {
   font-size: clamp(2.2rem, 3.4vw, 3rem);
   line-height: 1.14;
 }
+
+/* ─── Journey page CJK heading typography ──────────────────────────────────── */
+
+[data-lang="zh"] .journey-page-hero h1,
+[data-lang="zh"] .journey-page-section h2,
+[data-lang="ja"] .journey-page-hero h1,
+[data-lang="ja"] .journey-page-section h2 {
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
+  line-height: 1.1;
+}

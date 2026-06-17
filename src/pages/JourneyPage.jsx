@@ -1,315 +1,92 @@
 import { useEffect, useRef, useState } from "react";
 import MinimalFooter from "../components/MinimalFooter.jsx";
+import { useLang } from "../hooks/useLang.js";
+import { t } from "../i18n/siteCopy.js";
 
-const journeySections = [
+const sectionMeta = [
   {
     id: "market",
     number: "02",
-    label: "MARKET",
-    title: (
-      <>
-        LEARNING HOW
-        <br />
-        BUSINESS MOVES
-        <br />
-        ACROSS BORDERS.
-      </>
-    ),
-    body: (
-      <>
-        <p>
-          Early in my career, I worked across international
-          <br />
-          business environments where products, customers,
-          <br />
-          and expectations did not always move in the same direction.
-        </p>
-        <p>
-          That period taught me that market development is not only
-          <br />
-          about selling. It is about understanding context:
-          <br />
-          language, timing, incentives, trust, and the gap between
-          <br />
-          what a company offers and what a customer can actually use.
-        </p>
-      </>
-    ),
+    labelKey: "journey.market.label",
+    h2Keys: ["journey.market.h2.line1", "journey.market.h2.line2", "journey.market.h2.line3"],
+    bodyKeys: ["journey.market.body.p1", "journey.market.body.p2"],
     rows: [
-      {
-        number: "01",
-        title: "CONTEXT",
-        text: (
-          <>
-            Markets are shaped by more than demand.
-            <br />
-            They are shaped by timing, trust, and local habits.
-          </>
-        ),
-      },
-      {
-        number: "02",
-        title: "TRANSLATION",
-        text: (
-          <>
-            Good business development often means translating
-            <br />
-            between product logic and customer reality.
-          </>
-        ),
-      },
-      {
-        number: "03",
-        title: "EXECUTION",
-        text: (
-          <>
-            Strategy only matters when it becomes something
-            <br />
-            customers, partners, and teams can act on.
-          </>
-        ),
-      },
+      { number: "01", titleKey: "journey.market.row1.title", textKey: "journey.market.row1.text" },
+      { number: "02", titleKey: "journey.market.row2.title", textKey: "journey.market.row2.text" },
+      { number: "03", titleKey: "journey.market.row3.title", textKey: "journey.market.row3.text" },
     ],
   },
   {
     id: "energy",
     number: "03",
-    label: "ENERGY",
+    labelKey: "journey.energy.label",
     variant: "energy",
-    title: (
-      <>
-        FROM SOLAR MODULES
-        <br />
-        TO STORAGE SYSTEMS.
-      </>
-    ),
-    body: (
-      <>
-        <p>Renewable energy gave my work a stronger sense of direction.</p>
-        <p>
-          In solar, I learned how hardware, channels,
-          <br />
-          EPCs, developers, pricing, supply chains,
-          <br />
-          and policy all interact in the real market.
-        </p>
-        <p>
-          But the energy transition is moving beyond generation alone.
-          <br />
-          Storage, demand response, VPPs, and home energy management
-          <br />
-          are becoming part of a wider system.
-        </p>
-        <p>That shift is where my current focus is heading.</p>
-      </>
-    ),
+    h2Keys: ["journey.energy.h2.line1", "journey.energy.h2.line2", "journey.energy.h2.line3"],
+    bodyKeys: [
+      "journey.energy.body.p1",
+      "journey.energy.body.p2",
+      "journey.energy.body.p3",
+      "journey.energy.body.p4",
+    ],
     rows: [
-      {
-        number: "01",
-        title: "SOLAR",
-        text: (
-          <>
-            A foundation in renewable energy products,
-            <br />
-            channels, and commercial execution.
-          </>
-        ),
-      },
-      {
-        number: "02",
-        title: "JAPAN",
-        text: (
-          <>
-            A market where policy, quality expectations,
-            <br />
-            partners, and trust strongly shape adoption.
-          </>
-        ),
-      },
-      {
-        number: "03",
-        title: "STORAGE",
-        text: (
-          <>
-            A move from selling components toward enabling
-            <br />
-            more flexible energy use.
-          </>
-        ),
-      },
-      {
-        number: "04",
-        title: "SYSTEMS",
-        text: (
-          <>
-            The future is less about isolated products
-            <br />
-            and more about connected energy behavior.
-          </>
-        ),
-      },
+      { number: "01", titleKey: "journey.energy.row1.title", textKey: "journey.energy.row1.text" },
+      { number: "02", titleKey: "journey.energy.row2.title", textKey: "journey.energy.row2.text" },
+      { number: "03", titleKey: "journey.energy.row3.title", textKey: "journey.energy.row3.text" },
+      { number: "04", titleKey: "journey.energy.row4.title", textKey: "journey.energy.row4.text" },
     ],
   },
   {
     id: "technology",
     number: "04",
-    label: "TECHNOLOGY",
+    labelKey: "journey.technology.label",
     variant: "technology",
-    title: (
-      <>
-        TOOLS CHANGE
-        <br />
-        HOW WORK GETS DONE.
-      </>
-    ),
-    body: (
-      <>
-        <p>Working with enterprise technology and AI tools changed how I think about work.</p>
-        <p>
-          It made clear that software is only valuable when it fits real workflows,
-          <br />
-          real users, and real organizational constraints.
-        </p>
-        <p>
-          It also changed my own working method:
-          <br />
-          using AI for research, writing, analysis, product thinking,
-          <br />
-          and small experiments that would have been harder to build before.
-        </p>
-      </>
-    ),
+    h2Keys: ["journey.technology.h2.line1", "journey.technology.h2.line2", "journey.technology.h2.line3"],
+    bodyKeys: [
+      "journey.technology.body.p1",
+      "journey.technology.body.p2",
+      "journey.technology.body.p3",
+    ],
     rows: [
-      {
-        number: "01",
-        title: "WORKFLOW",
-        text: "Tools matter when they improve how people actually work.",
-      },
-      {
-        number: "02",
-        title: "ADOPTION",
-        text: (
-          <>
-            A product is not complete until users can understand it,
-            <br />
-            trust it, and make it part of their routine.
-          </>
-        ),
-      },
-      {
-        number: "03",
-        title: "AI",
-        text: (
-          <>
-            AI is most useful when it sharpens judgment
-            <br />
-            and accelerates useful work.
-          </>
-        ),
-      },
-      {
-        number: "04",
-        title: "BUILDING",
-        text: (
-          <>
-            Small experiments help turn abstract ideas
-            <br />
-            into something visible and testable.
-          </>
-        ),
-      },
+      { number: "01", titleKey: "journey.technology.row1.title", textKey: "journey.technology.row1.text" },
+      { number: "02", titleKey: "journey.technology.row2.title", textKey: "journey.technology.row2.text" },
+      { number: "03", titleKey: "journey.technology.row3.title", textKey: "journey.technology.row3.text" },
+      { number: "04", titleKey: "journey.technology.row4.title", textKey: "journey.technology.row4.text" },
     ],
   },
   {
     id: "next-chapter",
     number: "05",
-    label: "NEXT CHAPTER",
+    labelKey: "journey.next.label",
     variant: "energy",
-    title: (
-      <>
-        RESIDENTIAL ENERGY
-        <br />
-        IN JAPAN.
-      </>
-    ),
-    body: (
-      <>
-        <p>
-          The next chapter is focused on residential energy storage
-          <br />
-          and the systems around it.
-        </p>
-        <p>
-          For Japan, the opportunity is not only to install more batteries.
-          <br />
-          It is to connect households, solar generation, storage,
-          <br />
-          demand response, aggregators, utilities, and policy
-          <br />
-          into a more flexible energy system.
-        </p>
-        <p>
-          That requires more than product knowledge.
-          <br />
-          It requires market understanding, partner development,
-          <br />
-          customer education, and long-term execution.
-        </p>
-        <p>This is the work I want to keep building toward.</p>
-      </>
-    ),
+    h2Keys: ["journey.next.h2.line1", "journey.next.h2.line2", "journey.next.h2.line3"],
+    bodyKeys: [
+      "journey.next.body.p1",
+      "journey.next.body.p2",
+      "journey.next.body.p3",
+      "journey.next.body.p4",
+    ],
     rows: [
-      {
-        number: "01",
-        title: "HOUSEHOLDS",
-        text: (
-          <>
-            Homes are becoming more active participants
-            <br />
-            in the energy system.
-          </>
-        ),
-      },
-      {
-        number: "02",
-        title: "PARTNERS",
-        text: (
-          <>
-            Residential energy adoption depends on installers,
-            <br />
-            channels, aggregators, utilities, and local trust.
-          </>
-        ),
-      },
-      {
-        number: "03",
-        title: "LONG TERM",
-        text: (
-          <>
-            The most meaningful work compounds through depth,
-            <br />
-            execution, and patience.
-          </>
-        ),
-      },
+      { number: "01", titleKey: "journey.next.row1.title", textKey: "journey.next.row1.text" },
+      { number: "02", titleKey: "journey.next.row2.title", textKey: "journey.next.row2.text" },
+      { number: "03", titleKey: "journey.next.row3.title", textKey: "journey.next.row3.text" },
     ],
   },
 ];
 
-const journeyProgressions = [
-  {
-    label: "PLACE",
-    path: "China → Japan → Global",
-  },
-  {
-    label: "ENERGY",
-    path: "Solar → Storage → Systems",
-  },
-  {
-    label: "WORK",
-    path: "Business → Technology → AI",
-  },
+const progressionKeys = [
+  { labelKey: "journey.progress.place.label", pathKey: "journey.progress.place.path" },
+  { labelKey: "journey.progress.energy.label", pathKey: "journey.progress.energy.path" },
+  { labelKey: "journey.progress.work.label", pathKey: "journey.progress.work.path" },
 ];
+
+function renderLines(lang, ...keys) {
+  const lines = keys.map((k) => t(lang, k)).filter(Boolean);
+  return lines.reduce((acc, line, i, arr) => {
+    acc.push(line);
+    if (i < arr.length - 1) acc.push(<br key={i} />);
+    return acc;
+  }, []);
+}
 
 function useJourneyReveal() {
   const ref = useRef(null);
@@ -353,41 +130,41 @@ function JourneyMarker({ number, label }) {
   );
 }
 
-function JourneyHero() {
+function JourneyRows({ rows, lang }) {
+  return (
+    <div className="journey-row-list">
+      {rows.map((row, index) => (
+        <div className="journey-row" key={row.titleKey} style={{ "--journey-row-index": index }}>
+          <span className="journey-row-number">{row.number}</span>
+          <div className="journey-row-main">
+            <strong>{t(lang, row.titleKey)}</strong>
+            <p>{t(lang, row.textKey)}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function JourneyHero({ lang }) {
   const [ref, isVisible] = useJourneyReveal();
 
   return (
     <section className={`journey-page-hero${isVisible ? " is-visible" : ""}`} ref={ref} aria-labelledby="journey-title">
       <div className="journey-page-hero-inner">
-        <JourneyMarker number="01" label="JOURNEY" />
+        <JourneyMarker number="01" label={t(lang, "journey.hero.marker")} />
         <h1 id="journey-title">
-          A PATH
-          <br />
-          TOWARD
-          <br />
-          ENERGY SYSTEMS.
+          {renderLines(lang, "journey.hero.h1.line1", "journey.hero.h1.line2", "journey.hero.h1.line3")}
         </h1>
         <div className="journey-page-hero-body">
-          <p>
-            My work has moved across markets,
-            <br />
-            technologies, and business models.
-          </p>
-          <p>
-            The common thread has become clearer over time:
-            <br />
-            understanding real customer needs,
-            <br />
-            building trust in complex markets,
-            <br />
-            and turning technical products into practical adoption.
-          </p>
+          <p>{t(lang, "journey.hero.body.p1")}</p>
+          <p>{t(lang, "journey.hero.body.p2")}</p>
         </div>
         <div className="journey-progress-map" aria-label="Journey progression">
-          {journeyProgressions.map((item) => (
-            <div className="journey-progress-row" key={item.label}>
-              <span>{item.label}</span>
-              <strong>{item.path}</strong>
+          {progressionKeys.map((item) => (
+            <div className="journey-progress-row" key={item.labelKey}>
+              <span>{t(lang, item.labelKey)}</span>
+              <strong>{t(lang, item.pathKey)}</strong>
             </div>
           ))}
         </div>
@@ -396,23 +173,7 @@ function JourneyHero() {
   );
 }
 
-function JourneyRows({ rows }) {
-  return (
-    <div className="journey-row-list">
-      {rows.map((row, index) => (
-        <div className="journey-row" key={row.title} style={{ "--journey-row-index": index }}>
-          <span className="journey-row-number">{row.number}</span>
-          <div className="journey-row-main">
-            <strong>{row.title}</strong>
-            <p>{row.text}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function JourneySection({ section }) {
+function JourneySection({ section, lang }) {
   const [ref, isVisible] = useJourneyReveal();
 
   return (
@@ -425,26 +186,32 @@ function JourneySection({ section }) {
     >
       <div className="journey-page-section-inner">
         <div className="journey-page-section-copy">
-          <JourneyMarker number={section.number} label={section.label} />
-          <h2 id={`journey-${section.id}-title`}>{section.title}</h2>
-          <div className="journey-page-section-body">{section.body}</div>
+          <JourneyMarker number={section.number} label={t(lang, section.labelKey)} />
+          <h2 id={`journey-${section.id}-title`}>{renderLines(lang, ...section.h2Keys)}</h2>
+          <div className="journey-page-section-body">
+            {section.bodyKeys.map((key) => (
+              <p key={key}>{t(lang, key)}</p>
+            ))}
+          </div>
         </div>
-        <JourneyRows rows={section.rows} />
+        <JourneyRows rows={section.rows} lang={lang} />
       </div>
     </section>
   );
 }
 
 export default function JourneyPage() {
+  const lang = useLang();
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
   return (
     <main className="journey-page">
-      <JourneyHero />
-      {journeySections.map((section) => (
-        <JourneySection key={section.id} section={section} />
+      <JourneyHero lang={lang} />
+      {sectionMeta.map((section) => (
+        <JourneySection key={section.id} section={section} lang={lang} />
       ))}
       <MinimalFooter />
     </main>
