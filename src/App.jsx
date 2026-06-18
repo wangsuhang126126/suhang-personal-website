@@ -14,6 +14,7 @@ import LabPage from "./pages/LabPage.jsx";
 import WritingPage from "./pages/WritingPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { useTheme } from "./hooks/useTheme.js";
 import { useLang } from "./hooks/useLang.js";
 import { t } from "./i18n/siteCopy.js";
@@ -22,18 +23,27 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
   const lang = useLang();
   const [scrollProgress, setScrollProgress] = useState(0);
-  const isAboutPage = window.location.pathname === "/about";
-  const isJourneyPage = window.location.pathname === "/journey";
-  const isLabPage = window.location.pathname === "/lab";
-  const isContactPage = window.location.pathname === "/contact";
-  const isWritingPage = window.location.pathname === "/writing";
-  const pathname = typeof window.location.pathname === "string" ? window.location.pathname : "";
+  const rawPathname = typeof window.location.pathname === "string" ? window.location.pathname : "/";
+  const pathname = rawPathname.replace(/\/+$/, "") || "/";
+  const isHomePage = pathname === "/";
+  const isAboutPage = pathname === "/about";
+  const isJourneyPage = pathname === "/journey";
+  const isLabPage = pathname === "/lab";
+  const isContactPage = pathname === "/contact";
+  const isWritingPage = pathname === "/writing";
   const articleSlug = pathname.match(/^\/writing\/([^/]+)$/)?.[1] || null;
   const isArticlePage = Boolean(articleSlug);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.setAttribute("lang", lang === "zh" ? "zh-CN" : lang);
   }, [lang]);
+
+  useEffect(() => {
+    const canonicalUrl = new URL(pathname, "https://suhangwang.com").href;
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
+    document.querySelector('meta[property="og:url"]')?.setAttribute("content", canonicalUrl);
+  }, [pathname]);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -88,7 +98,7 @@ export default function App() {
         <WritingPage />
       ) : isArticlePage ? (
         <ArticlePage slug={articleSlug} />
-      ) : (
+      ) : isHomePage ? (
         <main>
           <section
             className="hero"
@@ -109,6 +119,8 @@ export default function App() {
           <WritingPreviewSection />
           <ContactFooterSection />
         </main>
+      ) : (
+        <NotFoundPage />
       )}
     </>
   );

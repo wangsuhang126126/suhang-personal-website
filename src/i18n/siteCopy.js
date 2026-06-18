@@ -11,6 +11,12 @@ const copy = {
     "footer.copyright": "© 2026 Suhang Wang",
     "footer.location": "Tokyo · Japan",
 
+    // 404
+    "notFound.marker": "NOT FOUND",
+    "notFound.title": "Page not found.",
+    "notFound.body": "The page you are looking for may have moved or does not exist.",
+    "notFound.home": "Back to home",
+
     // Contact page
     "contact.marker": "CONTACT",
     "contact.heading.line1": "LET’S STAY",
@@ -264,6 +270,12 @@ const copy = {
     "footer.copyright": "© 2026 王苏杭",
     "footer.location": "东京 · 日本",
 
+    // 404
+    "notFound.marker": "页面不存在",
+    "notFound.title": "页面不存在。",
+    "notFound.body": "你访问的页面可能已经移动，或暂时不存在。",
+    "notFound.home": "返回首页",
+
     // Contact page
     "contact.marker": "联系",
     "contact.heading.line1": "欢迎",
@@ -516,6 +528,12 @@ const copy = {
     // Footer
     "footer.copyright": "© 2026 王 蘇杭",
     "footer.location": "東京 · 日本",
+
+    // 404
+    "notFound.marker": "NOT FOUND",
+    "notFound.title": "ページが見つかりません。",
+    "notFound.body": "お探しのページは移動したか、存在しない可能性があります。",
+    "notFound.home": "ホームへ戻る",
 
     // Contact page
     "contact.marker": "コンタクト",
