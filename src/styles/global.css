@@ -6539,3 +6539,188 @@ button {
   font-size: clamp(2.2rem, 4.2vw, 4.6rem);
   line-height: 1.1;
 }
+
+/* ─── Controlled information hierarchy refinements ───────────────────────── */
+
+.about-info-card h2,
+[data-lang="zh"] .about-info-card h2,
+[data-lang="ja"] .about-info-card h2 {
+  font-size: 12.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+[data-lang="zh"] .about-info-card h2,
+[data-lang="ja"] .about-info-card h2 {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.journey-row-list {
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 82%, #d8d4cf);
+  border-radius: 6px;
+  background: color-mix(in srgb, #ffffff 42%, transparent);
+  overflow: hidden;
+}
+
+:root[data-theme="dark"] .journey-row-list {
+  background: color-mix(in srgb, var(--bg-secondary) 30%, transparent);
+}
+
+.journey-row {
+  padding-right: clamp(18px, 2.4vw, 28px);
+  padding-left: clamp(18px, 2.4vw, 28px);
+}
+
+.journey-row-main strong {
+  color: color-mix(in srgb, var(--text-primary) 94%, var(--accent-energy));
+  font-size: 13.5px;
+}
+
+.journey-row-main p {
+  color: color-mix(in srgb, var(--text-secondary) 96%, var(--text-primary));
+}
+
+.journey-page-section-copy::after,
+.journey-row-list::before,
+.journey-row::before {
+  display: none;
+}
+
+.writing-featured-note {
+  background: color-mix(in srgb, #ffffff 48%, var(--bg-primary));
+}
+
+:root[data-theme="dark"] .writing-featured-note {
+  background: color-mix(in srgb, var(--bg-secondary) 38%, transparent);
+}
+
+.writing-index-list,
+.writing-topic-list {
+  gap: 10px;
+  border-top: 0;
+}
+
+.writing-index-row,
+.writing-topic-row {
+  padding-right: clamp(16px, 2.4vw, 22px);
+  padding-left: clamp(16px, 2.4vw, 22px);
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, #d8d4cf);
+  border-radius: 6px;
+  background: color-mix(in srgb, #ffffff 34%, transparent);
+}
+
+:root[data-theme="dark"] .writing-index-row,
+:root[data-theme="dark"] .writing-topic-row {
+  background: color-mix(in srgb, var(--bg-secondary) 26%, transparent);
+}
+
+.writing-index-row:hover,
+.writing-index-row:focus-visible,
+.writing-topic-row:hover {
+  background: color-mix(in srgb, #ffffff 54%, var(--bg-secondary));
+}
+
+:root[data-theme="dark"] .writing-index-row:hover,
+:root[data-theme="dark"] .writing-index-row:focus-visible,
+:root[data-theme="dark"] .writing-topic-row:hover {
+  background: color-mix(in srgb, var(--bg-secondary) 44%, transparent);
+}
+
+.writing-index-meta span {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 0 8px;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.lab-project-card {
+  align-content: start;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, #ffffff 50%, var(--bg-primary)), color-mix(in srgb, var(--bg-secondary) 38%, transparent));
+}
+
+.lab-project-status {
+  background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.lab-project-card p {
+  color: color-mix(in srgb, var(--text-secondary) 96%, var(--text-primary));
+}
+
+.lab-project-footer {
+  align-self: end;
+  margin-top: auto;
+  padding-top: clamp(22px, 4vh, 34px);
+  border-top: 1px solid color-mix(in srgb, var(--border-subtle) 66%, transparent);
+}
+
+.lab-project-tags span {
+  display: inline-flex;
+  min-height: 23px;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+}
+
+.contact-form {
+  gap: 20px;
+  background: color-mix(in srgb, #ffffff 82%, var(--bg-primary));
+}
+
+:root[data-theme="dark"] .contact-form {
+  background: color-mix(in srgb, var(--bg-secondary) 58%, transparent);
+}
+
+.contact-form label {
+  gap: 10px;
+}
+
+.contact-form label span {
+  color: color-mix(in srgb, var(--accent-warm) 78%, var(--text-primary));
+  font-size: 12.8px;
+  line-height: 1.15;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: color-mix(in srgb, #ffffff 92%, var(--bg-primary));
+}
+
+:root[data-theme="dark"] .contact-form input,
+:root[data-theme="dark"] .contact-form textarea {
+  background: color-mix(in srgb, var(--bg-primary) 86%, var(--bg-secondary));
+}
+
+.contact-page-body,
+.contact-footer-body {
+  color: color-mix(in srgb, var(--text-secondary) 96%, var(--text-primary));
+}
+
+.contact-page-note,
+.contact-footer-note {
+  color: color-mix(in srgb, var(--text-secondary) 92%, var(--text-primary));
+}
+
+@media (max-width: 767px) {
+  .journey-row,
+  .writing-index-row,
+  .writing-topic-row {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .writing-index-list,
+  .writing-topic-list {
+    gap: 9px;
+  }
+
+  .lab-project-footer {
+    align-items: start;
+  }
+}

@@ -60,10 +60,9 @@ export default function EnergyHorizon({ scrollProgress }) {
 
         <g className="coordinate-field" mask="url(#headlineQuietMask)">
           <path d="M76 160H1370M76 276H1370M76 514H1370" />
-          <path d="M210 104V610M405 104V610M878 104V610M1238 104V610" />
+          <path d="M210 104V610M405 104V610M1238 104V610" />
           <path d="M164 356h24M321 356h16M574 356h26M732 356h16M1010 356h26M1306 356h18" />
           <text x="92" y="150">34.3N / 108.9E</text>
-          <text x="894" y="266">35.7N / 139.7E</text>
           <text x="1200" y="504">OUTWARD VECTOR</text>
         </g>
 
@@ -79,17 +78,13 @@ export default function EnergyHorizon({ scrollProgress }) {
           <g className="node node-xian" transform="translate(403 356)">
             <circle className="node-ring" r="16" />
             <circle className="node-core" r="3.8" />
-            <text x="-112" y="-108">XI’AN</text>
-            <text x="-112" y="-90">34.3°N · 108.9°E</text>
+            <text x="-72" y="-132">XI’AN</text>
+            <text x="-72" y="-114">34.3°N · 108.9°E</text>
           </g>
 
           <g className="node node-tokyo" transform="translate(878 356)">
-            <circle className="node-ring outer" r="32" />
             <circle className="node-ring" r="20" />
             <circle className="node-core" r="5.5" />
-            <text x="-12" y="-50">TOKYO</text>
-            <text x="-12" y="-32">35.7°N · 139.7°E</text>
-            <text x="-12" y="-14">CURRENT OBSERVATION POINT</text>
           </g>
 
           <g className="node node-global" transform="translate(1238 356)">
