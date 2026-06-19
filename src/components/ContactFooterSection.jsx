@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import ContactForm from "./ContactForm.jsx";
 import { useLang } from "../hooks/useLang.js";
-import { withLang } from "../i18n/siteCopy.js";
+import { t, withLang } from "../i18n/siteCopy.js";
 
 const footerLinks = [
   {
-    text: "WRITING",
+    key: "nav.writing",
     href: "/writing",
   },
   {
-    text: "JOURNEY",
+    key: "nav.journey",
     href: "/journey",
   },
   {
-    text: "ABOUT",
+    key: "nav.about",
     href: "/about",
   },
 ];
@@ -60,45 +60,35 @@ export default function ContactFooterSection() {
         <div className="contact-footer-copy">
           <p className="section-marker">
             <span>05</span>
-            <span>CONTACT</span>
+            <span>{t(lang, "home.contact.marker")}</span>
           </p>
           <h2 id="contact-footer-title">
-            LET&rsquo;S STAY
-            <br />
-            IN TOUCH.
+            {t(lang, "home.contact.heading.line1")}
+            {t(lang, "home.contact.heading.line2") ? (
+              <>
+                <br />
+                {t(lang, "home.contact.heading.line2")}
+              </>
+            ) : null}
           </h2>
-          <p className="contact-footer-body">
-            For conversations around energy,
-            <br />
-            technology, Japan, and practical collaboration.
-          </p>
-          <p className="contact-footer-note">
-            If you have a relevant question, project idea,
-            <br />
-            media inquiry, or professional opportunity,
-            <br />
-            please send a short message below.
-          </p>
-          <p className="contact-footer-note">
-            I read messages selectively and reply
-            <br />
-            when there is a clear fit.
-          </p>
+          <p className="contact-footer-body">{t(lang, "home.contact.body")}</p>
+          <p className="contact-footer-note">{t(lang, "home.contact.note1")}</p>
+          <p className="contact-footer-note">{t(lang, "home.contact.note2")}</p>
         </div>
 
         <div className="contact-footer-panel">
-          <ContactForm />
+          <ContactForm lang={lang} />
 
           <nav className="contact-footer-nav" aria-label="Footer navigation">
             {footerLinks.map((link, index) => (
               <a
                 className="contact-link contact-link-nav"
                 href={withLang(link.href, lang)}
-                key={link.text}
+                key={link.key}
                 style={{ "--contact-link-index": index }}
               >
                 <strong>
-                  {link.text} <span aria-hidden="true">→</span>
+                  {t(lang, link.key)} <span aria-hidden="true">→</span>
                 </strong>
               </a>
             ))}
@@ -108,12 +98,12 @@ export default function ContactFooterSection() {
         <div className="contact-footer-bottom">
           <div className="contact-footer-divider" aria-hidden="true" />
           <div className="contact-footer-meta">
-            <p>© 2026 Suhang Wang</p>
-            <p>TOKYO · JAPAN</p>
+            <p>{t(lang, "footer.copyright")}</p>
+            <p>{t(lang, "footer.location")}</p>
             <p>
-              China-born.
-              <span> Japan-based.</span>
-              <span> Looking outward.</span>
+              {t(lang, "home.contact.meta.line1")}
+              <span> {t(lang, "home.contact.meta.line2")}</span>
+              <span> {t(lang, "home.contact.meta.line3")}</span>
             </p>
           </div>
         </div>

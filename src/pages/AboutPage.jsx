@@ -26,6 +26,28 @@ const directionRowKeys = [
 
 const personalDimensionKeys = ["work", "japan", "energy", "ai", "life", "curiosity"];
 
+const aboutInfoColumns = [
+  {
+    titleKey: "about.info.languages.title",
+    items: [
+      "about.info.languages.chinese",
+      "about.info.languages.japanese",
+      "about.info.languages.english",
+    ],
+  },
+  {
+    titleKey: "about.info.focus.title",
+    items: [
+      "about.info.focus.storage",
+      "about.info.focus.japan",
+      "about.info.focus.transition",
+      "about.info.focus.business",
+      "about.info.focus.ai",
+      "about.info.focus.projects",
+    ],
+  },
+];
+
 const beyondImages = [
   {
     className: "about-life-photo",
@@ -106,6 +128,23 @@ function EditorialRows({ rows, lang, numbered = true }) {
   );
 }
 
+function AboutInfoModule({ lang }) {
+  return (
+    <div className="about-info-module" aria-label={t(lang, "about.info.aria")}>
+      {aboutInfoColumns.map((column) => (
+        <section className="about-info-card" key={column.titleKey} aria-label={t(lang, column.titleKey)}>
+          <h2>{t(lang, column.titleKey)}</h2>
+          <ul>
+            {column.items.map((itemKey) => (
+              <li key={itemKey}>{t(lang, itemKey)}</li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function AboutIntroduction({ lang }) {
   const [ref, isVisible] = useReveal();
 
@@ -135,6 +174,7 @@ function AboutIntroduction({ lang }) {
             <p>{t(lang, "about.intro.body.p1")}</p>
             <p>{t(lang, "about.intro.body.p2")}</p>
           </div>
+          <AboutInfoModule lang={lang} />
         </div>
         <figure className="about-portrait">
           <img

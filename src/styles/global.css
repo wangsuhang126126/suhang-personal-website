@@ -3409,6 +3409,51 @@ button {
   margin: 0;
 }
 
+.about-info-module {
+  display: grid;
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+  gap: 14px;
+  max-width: 640px;
+  margin-top: clamp(28px, 4.5vh, 44px);
+}
+
+.about-info-card {
+  padding: 18px 18px 20px;
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 86%, var(--text-muted));
+  border-radius: 6px;
+  background: color-mix(in srgb, #ffffff 64%, var(--bg-primary));
+}
+
+:root[data-theme="dark"] .about-info-card {
+  background: color-mix(in srgb, var(--bg-secondary) 48%, transparent);
+}
+
+.about-info-card h2 {
+  margin: 0 0 16px;
+  color: color-mix(in srgb, var(--accent-warm) 78%, var(--text-secondary));
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.about-info-card ul {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.about-info-card li {
+  color: color-mix(in srgb, var(--text-secondary) 96%, var(--text-primary));
+  font-size: clamp(0.94rem, 1.02vw, 1rem);
+  font-weight: 500;
+  line-height: 1.42;
+}
+
 .about-portrait {
   width: min(100%, 610px);
   aspect-ratio: 4 / 5;
@@ -3741,19 +3786,13 @@ button {
   position: relative;
   min-height: 72vh;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 28%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--bg-primary) 90%, #f4f0eb);
-  background-size: 20rem 100%, auto;
+  background: color-mix(in srgb, var(--bg-primary) 90%, #f4f0eb);
   color: var(--text-primary);
   isolation: isolate;
 }
 
 :root[data-theme="dark"] .contact-footer-section {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 22%, transparent) 1px, transparent 1px),
-    #111316;
-  background-size: 20rem 100%, auto;
+  background: #111316;
 }
 
 .contact-footer-inner {
@@ -3816,6 +3855,7 @@ button {
   color: var(--text-secondary);
   font-size: clamp(1.06rem, 1.16vw, 1.14rem);
   line-height: 1.72;
+  white-space: pre-line;
 }
 
 .contact-footer-note {
@@ -3824,6 +3864,7 @@ button {
   color: color-mix(in srgb, var(--text-secondary) 88%, var(--text-primary));
   font-size: clamp(1.04rem, 1.14vw, 1.12rem);
   line-height: 1.72;
+  white-space: pre-line;
 }
 
 .contact-footer-section.is-visible .contact-footer-body,
@@ -5115,6 +5156,25 @@ button {
     margin-top: 32px;
     font-size: 1.08rem;
     line-height: 1.66;
+  }
+
+  .about-info-module {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .about-info-card {
+    padding: 17px;
+  }
+
+  .about-info-card h2 {
+    font-size: 12.5px;
+  }
+
+  .about-info-card li {
+    font-size: 1rem;
+    line-height: 1.46;
   }
 
   .about-portrait {

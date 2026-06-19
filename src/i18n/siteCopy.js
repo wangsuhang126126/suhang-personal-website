@@ -8,7 +8,7 @@ const copy = {
     "nav.contact": "Contact",
 
     // Footer
-    "footer.copyright": "© 2026 Suhang Wang",
+    "footer.copyright": "© 2026 Suhang Wang (Frank)",
     "footer.location": "Tokyo · Japan",
 
     // 404
@@ -32,7 +32,7 @@ const copy = {
     "form.submit": "Send Message",
 
     // Home — hero
-    "home.hero.kicker": "SILVER ENERGY HORIZON",
+    "home.hero.kicker": "ENERGY TRANSITION HORIZON",
     "home.hero.line1": "FROM JAPAN,",
     "home.hero.line2": "LOOKING OUTWARD.",
     "home.hero.subhead.line1": "Energy. Technology.",
@@ -75,6 +75,17 @@ const copy = {
     "home.technology.heading.line1": "TOOLS THAT CHANGE",
     "home.technology.heading.line2": "THE WAY WE WORK.",
     "home.technology.body": "AI is most useful when it sharpens judgment, accelerates research, and improves execution. The goal is not automation for its own sake, but better decisions and better work.",
+
+    // Home — Contact section
+    "home.contact.marker": "CONTACT",
+    "home.contact.heading.line1": "LET’S STAY",
+    "home.contact.heading.line2": "IN TOUCH.",
+    "home.contact.body": "For conversations around energy, technology, Japan, and practical collaboration.",
+    "home.contact.note1": "If you have a relevant question, project idea, media inquiry, or professional opportunity, please send a short message below.",
+    "home.contact.note2": "I read messages selectively and reply when there is a clear fit.",
+    "home.contact.meta.line1": "China-born.",
+    "home.contact.meta.line2": "Japan-based.",
+    "home.contact.meta.line3": "Looking outward.",
 
     // Writing page
     "writing.marker": "WRITING",
@@ -143,6 +154,18 @@ const copy = {
     "about.intro.dim.ai": "AI",
     "about.intro.dim.life": "Life",
     "about.intro.dim.curiosity": "Curiosity",
+    "about.info.aria": "Languages and focus areas",
+    "about.info.languages.title": "Languages",
+    "about.info.languages.chinese": "Chinese — Native",
+    "about.info.languages.japanese": "Japanese — Business fluent",
+    "about.info.languages.english": "English — Business fluent",
+    "about.info.focus.title": "Focus Areas",
+    "about.info.focus.storage": "Residential Energy Storage",
+    "about.info.focus.japan": "Japan Market Development",
+    "about.info.focus.transition": "Energy Transition",
+    "about.info.focus.business": "International Business",
+    "about.info.focus.ai": "AI-assisted Research & Writing",
+    "about.info.focus.projects": "Personal Digital Projects",
     "about.path.marker": "PATH",
     "about.path.h2.line1": "FINDING",
     "about.path.h2.line2": "THE THREAD.",
@@ -291,7 +314,7 @@ const copy = {
     "form.submit": "发送",
 
     // Home — hero
-    "home.hero.kicker": "银色能源地平线",
+    "home.hero.kicker": "能源转型的地平线",
     "home.hero.line1": "从日本，",
     "home.hero.line2": "面向世界。",
     "home.hero.subhead.line1": "能源。技术。",
@@ -334,6 +357,17 @@ const copy = {
     "home.technology.heading.line1": "改变我们",
     "home.technology.heading.line2": "工作方式的工具。",
     "home.technology.body": "AI 最有价值的地方，在于它能够锐化判断、加速研究、提升执行力。目标不是为了自动化而自动化，而是更好的决策与更优质的工作。",
+
+    // Home — Contact section
+    "home.contact.marker": "联系",
+    "home.contact.heading.line1": "保持联系。",
+    "home.contact.heading.line2": "",
+    "home.contact.body": "如果你想交流能源、技术、日本市场，或者具体的合作想法，欢迎给我留言。",
+    "home.contact.note1": "如果是相关的问题、项目想法、媒体沟通或职业机会，请简单说明背景。",
+    "home.contact.note2": "我会选择性阅读来信，并在双方有明确交集时回复。",
+    "home.contact.meta.line1": "生于中国。",
+    "home.contact.meta.line2": "立足日本。",
+    "home.contact.meta.line3": "面向世界。",
 
     // Writing page
     "writing.marker": "文章",
@@ -402,6 +436,18 @@ const copy = {
     "about.intro.dim.ai": "AI",
     "about.intro.dim.life": "生活",
     "about.intro.dim.curiosity": "好奇心",
+    "about.info.aria": "语言能力与关注领域",
+    "about.info.languages.title": "语言能力",
+    "about.info.languages.chinese": "中文 — 母语",
+    "about.info.languages.japanese": "日语 — 商务流利",
+    "about.info.languages.english": "英语 — 商务流利",
+    "about.info.focus.title": "关注领域",
+    "about.info.focus.storage": "住宅储能",
+    "about.info.focus.japan": "日本市场开发",
+    "about.info.focus.transition": "能源转型",
+    "about.info.focus.business": "国际商务",
+    "about.info.focus.ai": "AI 辅助研究与写作",
+    "about.info.focus.projects": "个人数字项目",
     "about.path.marker": "经历",
     "about.path.h2.line1": "寻找主线",
     "about.path.h2.line2": "",
@@ -526,7 +572,7 @@ const copy = {
     "nav.contact": "コンタクト",
 
     // Footer
-    "footer.copyright": "© 2026 王 蘇杭",
+    "footer.copyright": "© 2026 王 蘇杭（おう そこう）",
     "footer.location": "東京 · 日本",
 
     // 404
@@ -550,7 +596,7 @@ const copy = {
     "form.submit": "送信",
 
     // Home — hero
-    "home.hero.kicker": "シルバーエネルギーホライズン",
+    "home.hero.kicker": "エネルギー転換の地平",
     "home.hero.line1": "日本から、",
     "home.hero.line2": "世界を見渡す。",
     "home.hero.subhead.line1": "エネルギー。テクノロジー。",
@@ -593,6 +639,17 @@ const copy = {
     "home.technology.heading.line1": "働き方を変える",
     "home.technology.heading.line2": "ツール。",
     "home.technology.body": "AI が本当に役立つのは、判断を研ぎ澄まし、調査を速め、実行を助けるときだ。自動化が目的ではなく、より良い判断とより良い仕事のための道具として使う。",
+
+    // Home — Contact section
+    "home.contact.marker": "コンタクト",
+    "home.contact.heading.line1": "ご連絡はこちらから。",
+    "home.contact.heading.line2": "",
+    "home.contact.body": "エネルギー、テクノロジー、日本市場、または具体的な協業について話したい場合は、こちらからご連絡ください。",
+    "home.contact.note1": "関連する質問、プロジェクトの相談、メディア関連のお問い合わせ、または仕事上の機会があれば、簡単に背景を添えてください。",
+    "home.contact.note2": "内容を確認したうえで、明確な接点がある場合に返信します。",
+    "home.contact.meta.line1": "中国生まれ。",
+    "home.contact.meta.line2": "日本在住。",
+    "home.contact.meta.line3": "世界を見つめる。",
 
     // Writing page
     "writing.marker": "ライティング",
@@ -661,6 +718,18 @@ const copy = {
     "about.intro.dim.ai": "AI",
     "about.intro.dim.life": "生活",
     "about.intro.dim.curiosity": "好奇心",
+    "about.info.aria": "言語と関心領域",
+    "about.info.languages.title": "言語",
+    "about.info.languages.chinese": "中国語 — ネイティブ",
+    "about.info.languages.japanese": "日本語 — ビジネスレベル",
+    "about.info.languages.english": "英語 — ビジネスレベル",
+    "about.info.focus.title": "関心領域",
+    "about.info.focus.storage": "住宅用蓄電池",
+    "about.info.focus.japan": "日本市場開発",
+    "about.info.focus.transition": "エネルギー転換",
+    "about.info.focus.business": "国際ビジネス",
+    "about.info.focus.ai": "AI を使ったリサーチと執筆",
+    "about.info.focus.projects": "個人的なデジタルプロジェクト",
     "about.path.marker": "経歴",
     "about.path.h2.line1": "糸口を探して",
     "about.path.h2.line2": "",
