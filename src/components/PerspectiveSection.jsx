@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import PerspectiveVector from "./PerspectiveVector.jsx";
-import TokyoTransitionLine from "./TokyoTransitionLine.jsx";
 import { useLang } from "../hooks/useLang.js";
 import { t } from "../i18n/siteCopy.js";
 
@@ -70,7 +69,6 @@ export default function PerspectiveSection() {
       ref={sectionRef}
       aria-labelledby="perspective-title"
     >
-      <TokyoTransitionLine />
       <div className="perspective-inner">
         <div className="perspective-copy">
           <p className="section-marker">

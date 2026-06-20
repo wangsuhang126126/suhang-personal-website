@@ -30,6 +30,10 @@ const copy = {
     "form.topic": "Topic",
     "form.message": "Message",
     "form.submit": "Send Message",
+    "form.sending": "Sending...",
+    "form.success": "Message sent. Thank you.",
+    "form.error": "Something went wrong. Please try again later.",
+    "form.required": "Please fill in all required fields.",
 
     // Home — hero
     "home.hero.kicker": "ENERGY TRANSITION HORIZON",
@@ -312,6 +316,10 @@ const copy = {
     "form.topic": "主题",
     "form.message": "留言",
     "form.submit": "发送",
+    "form.sending": "发送中……",
+    "form.success": "已发送，谢谢你的留言。",
+    "form.error": "发送失败，请稍后再试。",
+    "form.required": "请填写所有必填项目。",
 
     // Home — hero
     "home.hero.kicker": "能源转型的地平线",
@@ -594,6 +602,10 @@ const copy = {
     "form.topic": "件名",
     "form.message": "メッセージ",
     "form.submit": "送信",
+    "form.sending": "送信中……",
+    "form.success": "送信しました。ご連絡ありがとうございます。",
+    "form.error": "送信に失敗しました。時間をおいて再度お試しください。",
+    "form.required": "必須項目を入力してください。",
 
     // Home — hero
     "home.hero.kicker": "エネルギー転換の地平",

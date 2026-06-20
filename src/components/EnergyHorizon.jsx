@@ -85,6 +85,9 @@ export default function EnergyHorizon({ scrollProgress }) {
           <g className="node node-tokyo" transform="translate(878 356)">
             <circle className="node-ring" r="20" />
             <circle className="node-core" r="5.5" />
+            <text x="-12" y="-50">TOKYO</text>
+            <text x="-12" y="-32">35.7°N · 139.7°E</text>
+            <text x="-12" y="-14">CURRENT OBSERVATION POINT</text>
           </g>
 
           <g className="node node-global" transform="translate(1238 356)">

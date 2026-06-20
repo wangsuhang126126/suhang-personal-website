@@ -89,7 +89,17 @@ The shared `canonicalSlug` connects `zh`, `ja`, and `en` versions of the same ar
 
 ## Contact Form Status
 
-The homepage Contact section uses a visible contact form instead of displaying an email address directly. There is currently no backend submission handler connected. If form submission is implemented later, connect it to a service such as Formspree or Cloudflare Pages Functions.
+The homepage Contact section and standalone `/contact` page use a visible contact form instead of displaying an email address directly. The form posts to a Cloudflare Pages Function at `/api/contact`, which sends messages through the Resend REST API.
+
+Required Cloudflare Pages environment variables:
+
+```text
+RESEND_API_KEY
+CONTACT_TO_EMAIL
+CONTACT_FROM_EMAIL
+```
+
+`CONTACT_FROM_EMAIL` must use a sender address or domain verified in Resend. Local Vite development can render and validate the form UI, but email sending only works when the Pages Function is running with those environment variables configured.
 
 ## Important Recent Bug Fixes
 

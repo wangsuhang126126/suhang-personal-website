@@ -303,3 +303,27 @@ Cloudflare Pages build settings should remain:
 Build command: npm run build
 Build output directory: dist
 ```
+
+## Contact Form Email Setup
+
+The Contact form posts to a Cloudflare Pages Function at:
+
+```text
+/api/contact
+```
+
+The function sends email through the Resend REST API. Configure these environment variables in Cloudflare Pages:
+
+```text
+RESEND_API_KEY
+CONTACT_TO_EMAIL
+CONTACT_FROM_EMAIL
+```
+
+In Cloudflare Pages, add them under your project settings:
+
+```text
+Settings → Environment variables
+```
+
+`CONTACT_FROM_EMAIL` must use a sender address or domain verified in Resend. Local Vite development can render and validate the form UI, but email sending only works when the Pages Function is running with those environment variables configured.

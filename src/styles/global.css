@@ -3911,6 +3911,14 @@ button {
   gap: 9px;
 }
 
+.contact-form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact-form label span {
   color: color-mix(in srgb, var(--accent-warm) 82%, var(--text-secondary));
   font-family: var(--font-mono);
@@ -3982,6 +3990,29 @@ button {
 .contact-form button:focus-visible {
   background: color-mix(in srgb, var(--accent-energy) 72%, var(--text-primary));
   transform: translateY(-1px);
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
+}
+
+.contact-form-status {
+  margin: 0;
+  color: color-mix(in srgb, var(--text-secondary) 94%, var(--text-primary));
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.contact-form-status.is-success {
+  color: color-mix(in srgb, var(--accent-energy) 82%, var(--text-primary));
+}
+
+.contact-form-status.is-error {
+  color: color-mix(in srgb, var(--accent-warm) 86%, var(--text-primary));
 }
 
 .contact-page {
