@@ -2,6 +2,12 @@ import { useState } from "react";
 import { t } from "../i18n/siteCopy.js";
 
 export default function ContactForm({ lang = "en" }) {
+  const fieldMaxLengths = {
+    name: 120,
+    email: 200,
+    topic: 200,
+    message: 5000,
+  };
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -23,6 +29,10 @@ export default function ContactForm({ lang = "en" }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (status === "sending") {
+      return;
+    }
+
     const name = formValues.name.trim();
     const email = formValues.email.trim();
     const topic = formValues.topic.trim();
@@ -31,6 +41,17 @@ export default function ContactForm({ lang = "en" }) {
     if (!name || !email || !topic || !message) {
       setStatus("error");
       setStatusMessage(t(lang, "form.required"));
+      return;
+    }
+
+    if (
+      name.length > fieldMaxLengths.name ||
+      email.length > fieldMaxLengths.email ||
+      topic.length > fieldMaxLengths.topic ||
+      message.length > fieldMaxLengths.message
+    ) {
+      setStatus("error");
+      setStatusMessage(t(lang, "form.error"));
       return;
     }
 
@@ -94,19 +115,49 @@ export default function ContactForm({ lang = "en" }) {
         </label>
         <label>
           <span>{t(lang, "form.name")}</span>
-          <input name="name" autoComplete="name" type="text" value={formValues.name} onChange={handleChange} required />
+          <input
+            name="name"
+            autoComplete="name"
+            type="text"
+            value={formValues.name}
+            onChange={handleChange}
+            maxLength={fieldMaxLengths.name}
+            required
+          />
         </label>
         <label>
           <span>{t(lang, "form.email")}</span>
-          <input name="email" autoComplete="email" type="email" value={formValues.email} onChange={handleChange} required />
+          <input
+            name="email"
+            autoComplete="email"
+            type="email"
+            value={formValues.email}
+            onChange={handleChange}
+            maxLength={fieldMaxLengths.email}
+            required
+          />
         </label>
         <label>
           <span>{t(lang, "form.topic")}</span>
-          <input name="topic" type="text" value={formValues.topic} onChange={handleChange} required />
+          <input
+            name="topic"
+            type="text"
+            value={formValues.topic}
+            onChange={handleChange}
+            maxLength={fieldMaxLengths.topic}
+            required
+          />
         </label>
         <label>
           <span>{t(lang, "form.message")}</span>
-          <textarea name="message" rows="5" value={formValues.message} onChange={handleChange} required />
+          <textarea
+            name="message"
+            rows="5"
+            value={formValues.message}
+            onChange={handleChange}
+            maxLength={fieldMaxLengths.message}
+            required
+          />
         </label>
         <button type="submit" disabled={status === "sending"}>
           {status === "sending" ? t(lang, "form.sending") : t(lang, "form.submit")}

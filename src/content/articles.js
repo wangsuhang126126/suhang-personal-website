@@ -5,6 +5,10 @@ const mdxModules = import.meta.glob("./articles/**/*.mdx", {
 });
 
 const languagePriority = ["en", "zh", "ja"];
+const validLanguages = new Set(languagePriority);
+const validStatuses = new Set(["published", "draft"]);
+const requiredFrontmatterFields = ["title", "date", "language", "summary", "tags", "status", "canonicalSlug"];
+const isProductionBuild = import.meta.env.PROD;
 
 function MissingArticleComponent() {
   return React.createElement(
@@ -16,6 +20,15 @@ function MissingArticleComponent() {
 
 function getPathParts(filePath) {
   return String(filePath).split("/");
+}
+
+function isIgnoredArticlePath(filePath) {
+  return getPathParts(filePath).some((part) => part.startsWith("_"));
+}
+
+function getFolderSlug(filePath) {
+  const pathParts = getPathParts(filePath);
+  return pathParts[pathParts.length - 2] || "";
 }
 
 function getArticleLanguage(filePath, frontmatter) {
@@ -31,8 +44,72 @@ function getArticleSlug(filePath, frontmatter) {
   return frontmatter.canonicalSlug || folderSlug;
 }
 
+function getValidationContext(filePath) {
+  return `${getFolderSlug(filePath) || "unknown-folder"} (${filePath})`;
+}
+
+function assertArticleFrontmatter(filePath, frontmatter) {
+  const context = getValidationContext(filePath);
+
+  if (!frontmatter || typeof frontmatter !== "object") {
+    throw new Error(`Article frontmatter is missing for ${context}. Export const frontmatter from the MDX file.`);
+  }
+
+  const missingFields = requiredFrontmatterFields.filter((field) => {
+    if (field === "tags") {
+      return !Array.isArray(frontmatter.tags);
+    }
+    return typeof frontmatter[field] !== "string" || frontmatter[field].trim() === "";
+  });
+
+  if (missingFields.length > 0) {
+    throw new Error(`Article frontmatter is incomplete for ${context}. Missing or invalid: ${missingFields.join(", ")}.`);
+  }
+
+  if (!validLanguages.has(frontmatter.language)) {
+    throw new Error(`Article frontmatter has invalid language for ${context}. Use zh, ja, or en.`);
+  }
+
+  if (!validStatuses.has(frontmatter.status)) {
+    throw new Error(`Article frontmatter has invalid status for ${context}. Use published or draft.`);
+  }
+}
+
+function validateCanonicalSlugs(articlesToValidate) {
+  const articlesByFolder = articlesToValidate.reduce((groups, article) => {
+    const folderSlug = getFolderSlug(article.sourcePath);
+    if (!groups[folderSlug]) {
+      groups[folderSlug] = [];
+    }
+    groups[folderSlug].push(article);
+    return groups;
+  }, {});
+
+  Object.entries(articlesByFolder).forEach(([folderSlug, folderArticles]) => {
+    const slugValues = [...new Set(folderArticles.map((article) => article.canonicalSlug).filter(Boolean))];
+
+    if (slugValues.length > 1) {
+      const details = folderArticles
+        .map((article) => `${article.sourcePath}: ${article.canonicalSlug || "(missing)"}`)
+        .join("; ");
+      throw new Error(
+        `Article canonicalSlug mismatch in folder "${folderSlug}". All language versions must share one canonicalSlug. ${details}`,
+      );
+    }
+
+    const languages = new Set();
+    folderArticles.forEach((article) => {
+      if (languages.has(article.language)) {
+        throw new Error(`Duplicate article language "${article.language}" found in folder "${folderSlug}".`);
+      }
+      languages.add(article.language);
+    });
+  });
+}
+
 function normalizeArticle(filePath, module) {
   const frontmatter = module?.frontmatter && typeof module.frontmatter === "object" ? module.frontmatter : {};
+  assertArticleFrontmatter(filePath, frontmatter);
   const slug = getArticleSlug(filePath, frontmatter);
   const language = getArticleLanguage(filePath, frontmatter);
 
@@ -50,14 +127,15 @@ function normalizeArticle(filePath, module) {
   };
 }
 
-const articles = Object.entries(mdxModules)
+const allArticles = Object.entries(mdxModules)
+  .filter(([filePath]) => !isIgnoredArticlePath(filePath))
   .map(([filePath, module]) => normalizeArticle(filePath, module))
-  .filter((article) => {
-    if (!article.slug) return false;
-    const parts = String(article.sourcePath).split("/");
-    return !parts.some((part) => part.startsWith("_"));
-  })
+  .filter((article) => article.slug)
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+validateCanonicalSlugs(allArticles);
+
+const articles = allArticles.filter((article) => !isProductionBuild || article.status === "published");
 
 const articlesBySlug = articles.reduce((groups, article) => {
   const slug = article.canonicalSlug || article.slug;

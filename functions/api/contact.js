@@ -10,6 +10,16 @@ const sanitize = (value) => (typeof value === "string" ? value.trim() : "");
 
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+const fieldLimits = {
+  name: 120,
+  email: 200,
+  topic: 200,
+  message: 5000,
+  source: 500,
+};
+
+const validationError = () => json({ ok: false, error: "Invalid contact form submission." }, 400);
+
 const escapeHtml = (value) =>
   value
     .replaceAll("&", "&amp;")
@@ -29,30 +39,39 @@ export async function onRequest(context) {
   try {
     payload = await request.json();
   } catch {
-    return json({ ok: false, error: "Invalid JSON body." }, 400);
+    return validationError();
   }
 
   const name = sanitize(payload.name);
   const email = sanitize(payload.email);
   const topic = sanitize(payload.topic);
   const message = sanitize(payload.message);
-  const source = sanitize(payload.source);
+  const source = sanitize(payload.source).slice(0, fieldLimits.source);
   const honeypot = sanitize(payload.company);
 
   if (honeypot) {
-    return json({ ok: true });
+    return validationError();
   }
 
   if (!name || !email || !topic || !message) {
-    return json({ ok: false, error: "Missing required fields." }, 400);
+    return validationError();
+  }
+
+  if (
+    name.length > fieldLimits.name ||
+    email.length > fieldLimits.email ||
+    topic.length > fieldLimits.topic ||
+    message.length > fieldLimits.message
+  ) {
+    return validationError();
   }
 
   if (!isValidEmail(email)) {
-    return json({ ok: false, error: "Invalid email address." }, 400);
+    return validationError();
   }
 
   if (!env.RESEND_API_KEY || !env.CONTACT_TO_EMAIL || !env.CONTACT_FROM_EMAIL) {
-    return json({ ok: false, error: "Contact service is not configured." }, 500);
+    return json({ ok: false, error: "Contact service is unavailable." }, 500);
   }
 
   const timestamp = new Date().toISOString();
@@ -83,21 +102,26 @@ export async function onRequest(context) {
     <p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>
   `;
 
-  const resendResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: env.CONTACT_FROM_EMAIL,
-      to: [env.CONTACT_TO_EMAIL],
-      reply_to: email,
-      subject,
-      text,
-      html,
-    }),
-  });
+  let resendResponse;
+  try {
+    resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: env.CONTACT_FROM_EMAIL,
+        to: [env.CONTACT_TO_EMAIL],
+        reply_to: email,
+        subject,
+        text,
+        html,
+      }),
+    });
+  } catch {
+    return json({ ok: false, error: "Email service failed." }, 502);
+  }
 
   if (!resendResponse.ok) {
     return json({ ok: false, error: "Email service failed." }, 502);
