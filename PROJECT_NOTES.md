@@ -101,6 +101,14 @@ CONTACT_FROM_EMAIL
 
 `CONTACT_FROM_EMAIL` must use a sender address or domain verified in Resend. Local Vite development can render and validate the form UI, but email sending only works when the Pages Function is running with those environment variables configured.
 
+Contact duplicate/rate-limit protection requires a Cloudflare KV namespace bound to the Pages project:
+
+```text
+CONTACT_RATE_LIMIT
+```
+
+The Pages Function at `functions/api/contact.js` uses this KV binding before sending through Resend. It rejects repeated submissions from the same IP within 60 seconds, allows at most 3 submissions from the same email within 10 minutes, and rejects duplicate normalized message content within 10 minutes. If the KV binding is missing, the Contact API returns a service-unavailable error instead of silently sending without protection.
+
 ## Important Recent Bug Fixes
 
 - Fixed a production black-screen crash caused by `f.match is not a function`.

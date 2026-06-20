@@ -32,6 +32,32 @@ dist
 
 Do not commit `node_modules`, `dist`, `.DS_Store`, or `.env`.
 
+## Contact Form Backend
+
+The Contact form submits to the Cloudflare Pages Function at:
+
+```text
+/api/contact
+```
+
+Configure these Cloudflare Pages environment variables:
+
+```text
+RESEND_API_KEY
+CONTACT_TO_EMAIL
+CONTACT_FROM_EMAIL
+```
+
+Also create a Cloudflare KV namespace and bind it to the Pages project with this exact binding name:
+
+```text
+CONTACT_RATE_LIMIT
+```
+
+In Cloudflare Pages, add the binding under the project settings for Functions / KV namespace bindings. The binding is required for backend-side duplicate and rate-limit protection. The function rejects repeated submissions from the same IP within 60 seconds, allows at most 3 submissions from the same email within 10 minutes, and rejects duplicate normalized message content within 10 minutes.
+
+After deployment, test by sending one valid message, then immediately submitting the same message again. The second request should show the localized "please wait" message instead of sending another email.
+
 ## What MDX Means Here
 
 MDX lets normal Markdown-style writing live together with a small set of React-powered article components.

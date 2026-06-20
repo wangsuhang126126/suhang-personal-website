@@ -24,6 +24,11 @@ export default function ContactForm({ lang = "en" }) {
       ...current,
       [name]: value,
     }));
+
+    if (status === "success" || status === "error") {
+      setStatus("idle");
+      setStatusMessage("");
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -77,6 +82,11 @@ export default function ContactForm({ lang = "en" }) {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || result?.ok !== true) {
+        if (response.status === 429 || result?.code === "RATE_LIMITED") {
+          setStatus("error");
+          setStatusMessage(t(lang, "form.rateLimited"));
+          return;
+        }
         throw new Error(result?.error || "Contact form submission failed.");
       }
 
@@ -159,7 +169,7 @@ export default function ContactForm({ lang = "en" }) {
             required
           />
         </label>
-        <button type="submit" disabled={status === "sending"}>
+        <button type="submit" disabled={status === "sending" || status === "success"}>
           {status === "sending" ? t(lang, "form.sending") : t(lang, "form.submit")}
         </button>
         {statusMessage ? (
