@@ -87,6 +87,23 @@ export const frontmatter = {
 
 The shared `canonicalSlug` connects `zh`, `ja`, and `en` versions of the same article. Missing language versions should be handled gracefully by the article page.
 
+Article templates:
+
+```text
+src/content/articles/_template/
+src/content/articles/_personal-template/
+```
+
+Use `_template/` for industry, policy, product, subsidy, storage, solar, Powerwall, Japan residential energy market, price, specification, market-data, or competitor-analysis articles. It includes the full industry disclaimer.
+
+Use `_personal-template/` for personal essays, travel notes, and daily life reflections. These articles do not include an AI-use note by default.
+
+Article disclaimer rule:
+
+- Industry / policy / product / subsidy / market analysis articles: use the full industry disclaimer.
+- Personal essays / travel / daily life articles: no disclaimer by default.
+- If a personal article contains specific public data, product specs, policy details, subsidies, market numbers, or similar claims, consider using the full industry disclaimer.
+
 ## Contact Form Status
 
 The homepage Contact section and standalone `/contact` page use a visible contact form instead of displaying an email address directly. The form posts to a Cloudflare Pages Function at `/api/contact`, which sends messages through the Resend REST API.

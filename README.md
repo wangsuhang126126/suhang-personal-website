@@ -142,7 +142,7 @@ Fields:
 - `language`: Use `zh`, `ja`, or `en`.
 - `summary`: Short description used on the Writing index and article page.
 - `tags`: Article tags as a list.
-- `status`: Usually `published`, but can also be `draft` or `planned`.
+- `status`: Use `published` when public and `draft` while preparing.
 - `canonicalSlug`: The shared article slug for all language versions.
 
 ## Article Components
@@ -215,13 +215,24 @@ Ready-to-use templates live in:
 
 ```text
 src/content/articles/_template/
+src/content/articles/_personal-template/
 ```
+
+Use `_template/` for industry, policy, product, subsidy, storage, solar, Powerwall, Japan residential energy market, price, specification, market-data, or competitor-analysis articles. It includes the full industry disclaimer.
+
+Use `_personal-template/` for personal essays, travel notes, and daily life reflections. These articles do not include an AI-use note by default.
+
+Article disclaimer rule:
+
+- Industry / policy / product / subsidy / market analysis articles: use the full industry disclaimer.
+- Personal essays / travel / daily life articles: no disclaimer by default.
+- If a personal article contains specific public data, product specs, policy details, subsidies, market numbers, or similar claims, consider using the full industry disclaimer.
 
 Follow these steps to publish a new article:
 
 **Step 1: Copy the template folder**
 
-Duplicate `src/content/articles/_template/` and rename it to your article slug.
+Duplicate the appropriate template folder and rename it to your article slug.
 The slug becomes the public URL. Use lowercase letters and hyphens only.
 
 Example:
