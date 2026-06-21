@@ -26,9 +26,11 @@ export default function HeroContent() {
       </div>
       <div className="identity-block">
         <p>
-          Suhang Wang
+          Suhang Wang (Frank)
           <br />
           <span lang="zh-Hans">王苏杭</span>
+          <br />
+          <span lang="ja">王 蘇杭（おう そこう）</span>
         </p>
         <p>{t(lang, "home.hero.identity.bio")}</p>
         <p>{t(lang, "home.hero.identity.tags")}</p>
