@@ -18,6 +18,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { useTheme } from "./hooks/useTheme.js";
 import { useLang } from "./hooks/useLang.js";
 import { t } from "./i18n/siteCopy.js";
+import { applyMetadata, getArticleMetadata, getPageMetadata } from "./utils/metadata.js";
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
@@ -40,10 +41,9 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
-    const canonicalUrl = new URL(pathname, "https://suhangwang.com").href;
-    document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
-    document.querySelector('meta[property="og:url"]')?.setAttribute("content", canonicalUrl);
-  }, [pathname]);
+    const metadata = isArticlePage ? getArticleMetadata(articleSlug, lang) : getPageMetadata(pathname, lang);
+    applyMetadata(metadata);
+  }, [articleSlug, isArticlePage, lang, pathname]);
 
   useEffect(() => {
     const updateProgress = () => {

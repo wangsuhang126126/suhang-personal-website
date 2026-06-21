@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Suhang Wang (Frank)">
+  <rect width="1200" height="630" fill="#F8F9FB"/>
+  <path d="M0 1H1200" stroke="#D8DCE2"/>
+  <path d="M0 629H1200" stroke="#D8DCE2"/>
+  <path d="M180 120H1020" stroke="#D8DCE2" stroke-opacity="0.72"/>
+  <path d="M180 510H1020" stroke="#D8DCE2" stroke-opacity="0.72"/>
+  <circle cx="925" cy="315" r="118" fill="none" stroke="#D8DCE2" stroke-width="1.5"/>
+  <circle cx="925" cy="315" r="64" fill="none" stroke="#AAB1BA" stroke-width="1.2" stroke-opacity="0.58"/>
+  <circle cx="925" cy="315" r="7" fill="#52745D"/>
+  <path d="M262 315H925" stroke="#AAB1BA" stroke-width="1.5"/>
+  <circle cx="262" cy="315" r="8" fill="#52745D"/>
+  <g fill="#1D1D1F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+    <text x="180" y="252" font-size="92" font-weight="800" letter-spacing="-5">SH</text>
+    <text x="180" y="344" font-size="54" font-weight="700">Suhang Wang (Frank)</text>
+    <text x="180" y="402" font-size="30" font-weight="500" fill="#62666D">Energy · Technology · Japan</text>
+  </g>
+  <text x="180" y="470" fill="#62666D" font-family="SFMono-Regular, Consolas, Liberation Mono, monospace" font-size="22" font-weight="600" letter-spacing="1.4">WRITING · RESEARCH NOTES · SMALL DIGITAL PROJECTS</text>
+</svg>

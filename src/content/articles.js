@@ -120,6 +120,7 @@ function normalizeArticle(filePath, module) {
     summary: frontmatter.summary || "No summary has been added yet.",
     tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
     status: frontmatter.status || "draft",
+    image: typeof frontmatter.image === "string" ? frontmatter.image : "",
     canonicalSlug: frontmatter.canonicalSlug || slug,
     Component: typeof module?.default === "function" ? module.default : MissingArticleComponent,
     slug,
