@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavigationBrand from "./NavigationBrand.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import { useLang } from "../hooks/useLang.js";
-import { t, withLang } from "../i18n/siteCopy.js";
+import { savePreferredLang, t, withLang } from "../i18n/siteCopy.js";
 
 const navKeys = [
   { key: "nav.writing", href: "/writing" },
@@ -74,6 +74,7 @@ export default function Navigation({ theme, onToggleTheme }) {
                 href={langHref(code)}
                 key={code}
                 aria-current={lang === code ? "true" : undefined}
+                onClick={() => savePreferredLang(code)}
               >
                 {label}
               </a>

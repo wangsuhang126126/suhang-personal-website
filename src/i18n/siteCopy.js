@@ -862,11 +862,49 @@ const copy = {
 };
 
 const VALID_LANGS = ["en", "zh", "ja"];
+const LANGUAGE_STORAGE_KEY = "preferredLang";
+
+function isValidLang(lang) {
+  return VALID_LANGS.includes(lang);
+}
+
+function getStoredPreferredLang() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    const storedLang = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return isValidLang(storedLang) ? storedLang : null;
+  } catch {
+    return null;
+  }
+}
 
 export function getLang() {
+  if (typeof window === "undefined") {
+    return "en";
+  }
+
   const params = new URLSearchParams(window.location.search);
   const lang = params.get("lang");
-  return VALID_LANGS.includes(lang) ? lang : "en";
+  if (isValidLang(lang)) {
+    return lang;
+  }
+
+  return getStoredPreferredLang() || "en";
+}
+
+export function savePreferredLang(lang) {
+  if (typeof window === "undefined" || !isValidLang(lang)) {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+  } catch {
+    // Ignore storage errors so language links continue to work normally.
+  }
 }
 
 export function t(lang, key) {

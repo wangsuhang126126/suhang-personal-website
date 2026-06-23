@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import MinimalFooter from "../components/MinimalFooter.jsx";
 import { articleMdxComponents } from "../components/mdx/ArticleMdxComponents.jsx";
 import { getArticle, getArticleVersions } from "../content/articles.js";
-import { withLang } from "../i18n/siteCopy.js";
+import { getLang, savePreferredLang, withLang } from "../i18n/siteCopy.js";
 
 const languageLabels = {
   zh: "ZH",
@@ -11,8 +11,7 @@ const languageLabels = {
 };
 
 function getRequestedLanguage() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("lang") || "en";
+  return getLang();
 }
 
 function formatDate(date) {
@@ -83,6 +82,7 @@ export default function ArticlePage({ slug }) {
                       aria-current={isActive ? "page" : undefined}
                       href={`/writing/${article.slug}?lang=${language}`}
                       key={language}
+                      onClick={() => savePreferredLang(language)}
                     >
                       {languageLabels[language]}
                     </a>
